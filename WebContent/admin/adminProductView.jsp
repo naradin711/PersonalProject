@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>물품 정보 보기</title>
-<link href="${conPath }/css/stylep2.css " rel="stylesheet" type="text/css">
+<link href="${conPath }/css/stylep3.css" rel="stylesheet" type="text/css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript">
 		$(document).ready(function () {

@@ -8,8 +8,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link href="${conPath }/css/stylep2.css" rel="stylesheet" type="text/css">
+<title>상 품 등 록</title>
+<link href="${conPath }/css/stylep3.css" rel="stylesheet" type="text/css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript">
 		$(document).ready(function () {
@@ -18,11 +18,10 @@
 </script>
 </head>
 <body>
-	<jsp:include page="../main/header.jsp"/>
 	<div id="content_form" >
 		<form action="${conPath }/AddProduct.do" method="post" enctype="multipart/form-data">
 			 <table>
-				<caption>원글쓰기</caption>
+				<caption>상 품 등 록</caption>
 				<tr> <th>상품명</th> <td><input type="text" name="pname" required="required"></td> </tr>
 				<tr> 
 					<th>상품타입</th> 
@@ -55,6 +54,5 @@
 			</table>
 		</form>
 	</div>
-	<jsp:include page="../main/footer.jsp"/>
 </body>
 </html>

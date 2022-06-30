@@ -143,7 +143,7 @@ public class ProductDao {
 		int result = FAIL;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		String sql = "UPDATE FILEBOARD SET PHIT = PHIT+1 WHERE PID= ? ";
+		String sql = "UPDATE PRODUCT SET PHIT = PHIT + 1 WHERE PID = ? ";
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -152,7 +152,7 @@ public class ProductDao {
 			System.out.println(result==SUCCESS? "조회수 올리기 성공":"조회수 올리기  실패");
 			
 		} catch (Exception e) {
-			System.out.println(e.getMessage() + "hitup error");
+			System.out.println(e.getMessage() + " hit up error");
 		} finally {
 			try {
 				 
@@ -558,7 +558,7 @@ public class ProductDao {
 		ResultSet			rs  = null;
 		String sql = "SELECT * FROM " + 
 				" (SELECT ROWNUM RN, A.* FROM " + 
-				" (select P.* from PRODUCT P WHERE PTYPE='BOTTOM' " + 
+				" (select P.* from PRODUCT P WHERE PTYPE='BOT' " + 
 				"                            ORDER BY PHIT DESC )A ) " + 
 				"  WHERE RN BETWEEN ? AND ? ";
 		try {

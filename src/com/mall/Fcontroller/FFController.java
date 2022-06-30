@@ -9,23 +9,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mall.service.AccViewService;
 import com.mall.service.AddProductService;
 import com.mall.service.AdminProductViewService;
 import com.mall.service.BestSellerViewService;
+import com.mall.service.BotViewService;
 import com.mall.service.CJoinService;
 import com.mall.service.CLoginService;
 import com.mall.service.CLogoutService;
 import com.mall.service.CustomerListService;
 import com.mall.service.CustomerModifyService;
 import com.mall.service.CustomerModifyService2;
+import com.mall.service.CustomerProductService;
 import com.mall.service.CustomerViewService;
 import com.mall.service.DeleteCustomerService;
 import com.mall.service.DeleteCustomerService2;
+import com.mall.service.DressViewService;
 import com.mall.service.IdConfirmService;
 import com.mall.service.ProductDeleteService;
 import com.mall.service.ProductListService;
 import com.mall.service.ProductModifyService;
 import com.mall.service.Service;
+import com.mall.service.TopViewService;
+import com.mall.service.WhatsNewService;
 import com.mall.service.emailConfirmService;
 import com.mall.service.telConfirmService;
 
@@ -168,6 +174,10 @@ public class FFController extends HttpServlet {
 			service = new DeleteCustomerService();//  
 			service.execute(request, response); // aid parameter로 idConfirm한 결과를 request로 객체 set
 			viewPage = "main1.do";
+		} else if (command.equals("/CustomerProductView.do")) { // ID 중복 체크하기
+			service = new CustomerProductService();//  
+			service.execute(request, response); // pid parameter로 idConfirm한 결과를 request로 객체 set
+			viewPage = "customer/customer_Product_View.jsp";
 		} 
 		 //
 		 // INDEX PRODUCT
@@ -202,6 +212,26 @@ public class FFController extends HttpServlet {
 			service = new BestSellerViewService();//  
 			service.execute(request, response); // pid parameter로 idConfirm한 결과를 request로 객체 set
 			viewPage = "product/bestSeller.jsp";
+		} else if (command.equals("/WhatsNewView.do")) { // ID 중복 체크하기
+			service = new WhatsNewService();//  
+			service.execute(request, response); // pid parameter로 idConfirm한 결과를 request로 객체 set
+			viewPage = "product/whatsNew.jsp";
+		} else if (command.equals("/DressView.do")) {  
+			service = new DressViewService();//  
+			service.execute(request, response);   
+			viewPage = "product/dress.jsp";
+		} else if (command.equals("/AccView.do")) { // ID 중복 체크하기
+			service = new AccViewService();//  
+			service.execute(request, response); // pid parameter로 idConfirm한 결과를 request로 객체 set
+			viewPage = "product/acc.jsp";
+		} else if (command.equals("/TopView.do")) { // ID 중복 체크하기
+			service = new TopViewService();//  
+			service.execute(request, response); // pid parameter로 idConfirm한 결과를 request로 객체 set
+			viewPage = "product/tops.jsp";
+		} else if (command.equals("/BotView.do")) { // ID 중복 체크하기
+			service = new BotViewService();//  
+			service.execute(request, response); // pid parameter로 idConfirm한 결과를 request로 객체 set
+			viewPage = "product/bottoms.jsp";
 		};
 		 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

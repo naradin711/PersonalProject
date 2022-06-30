@@ -8,8 +8,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link href="${conPath }/css/style2.css " rel="stylesheet" type="text/css">
+<title>상품 정보 수정</title>
+<link href="${conPath }/css/stylep3.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
@@ -21,11 +21,10 @@
 </script>
 </head>
 <body>
-	<jsp:include page="../main/header.jsp"/>
 	<div id="content_form">
 	<form action="${conPath }/ProductModify.do" method="post" enctype="multipart/form-data">
 			 <table>
-				<caption>원글쓰기</caption>
+				<caption>상품 정보 수정</caption>
 				<tr><th>상품코드</th> <td><input type="text" name="pid" value="${AdminProductView.pid }" readonly="readonly"></td></tr>
 				<tr> <th>상품명</th> <td><input type="text" name="pname" value="${AdminProductView.pname }" required="required"></td> </tr>
 				<tr> 
@@ -59,6 +58,5 @@
 			</table>
 		</form>
 	</div>
-	<jsp:include page="../main/footer.jsp"/>
 </body>
 </html>
