@@ -1,0 +1,58 @@
+@CHARSET "UTF-8";
+table {border: 2px solid pink; width:600px; margin: 10px auto;}
+table tr { background-color: #FFCDCD; height: 40px;}
+table tr:hover { background-color: #FF9F9F;
+	cursor: pointer;
+}
+td, th {text-align: center; padding:5px; }
+caption {font-size: 20px; padding:10px;}
+h2, b{text-align: center; color:red;}
+a { text-decoration: none; color:black}
+.left{text-align: left;}
+.paging {text-align: center;}
+input:not(.btn), textarea {
+	width: 150px;
+}
+p {
+	text-align: center;
+}
+#content_form table {border: 2px solid white; width:95%; margin: 10px auto;}
+#content_form table tr { background-color: #FFCDCD; height:40px; }
+#content_form table tr:hover { background-color: #FF9F9F;
+	cursor: pointer;
+}
+#content_form td, #content_form th {text-align: center; padding:5px; font-size: 15px; font-weight: bold;}
+#content_form caption {font-size: 20px; padding:10px; }
+#content_form h2, #content_form b{text-align: center; color:red;}
+#content_form a { text-decoration: none; color: #999999;}
+#content_form .left{text-align: left;}
+#content_form .paging {text-align: center;}
+#content_form input:not(.btn), #content_form textarea {
+	width: 90%;
+}
+#content_form{
+	width:1000px; margin: 0px auto; height: 1000px; 
+	text-align: center;
+	color: #003300;
+	padding-top:50px;
+	overflow: hidden; 
+}
+
+#side_banner {
+	width:200px; margin: 10px auto; height: 700px; 
+	text-align: center;
+	color: #003300; 
+	float: left;
+	border: 1px solid red; margin-left : 20px;
+}
+
+#main_banner {
+	width:650px; 
+	margin: 10px auto; 
+	margin-left : 20px;
+	height: 700px; 
+	text-align: center;
+	color: #003300;
+	float: left; 
+	border: 1px solid red; 
+}

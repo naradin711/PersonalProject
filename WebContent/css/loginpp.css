@@ -1,0 +1,46 @@
+@charset "UTF-8";
+#loginForm_wrap {
+	width:430px;
+	margin: 75px auto;
+	padding:50px 100px;
+}
+#loginForm_wrap table {margin: 0 auto; text-align: center;}
+#loginForm_wrap table tr{height: 40px; text-align: center;  background-color: #FFCDCD;}
+#loginForm_wrap table th{
+	width: 120px;
+	color: #003300;
+	text-align: center;
+	padding-left: 10px;
+}
+#loginForm_wrap table  td {
+	width:500px;
+	text-align: center;
+}
+#cid, #cpw { border: 1px solid #003300; width: 95%; padding: 3px;}
+#loginForm_wrap table  tr #login_findIdPw{
+	height: 20px;
+	text-align: right;
+	font-size: 0.8em;
+	font-weight: bold;
+	color:#003300;
+}
+#loginForm_wrap table  tr:hover{ background-color: #FF9F9F; cursor:pointer;}
+#loginForm_wrap #login_join{
+	text-align: center;
+	color:#003300;
+	font-size: .9em;
+}
+#loginForm_wrap #login_join a {
+	text-decoration: none;
+	color:#003300;
+	font-weight: bold;
+}
+.loginBtn_style{
+	color:#ffffff;
+	background-color: #FF9F9F;
+	border-style: none; outline:none;
+	width: 70px; height: 120%; padding:3px; margin:5px;
+}
+.loginBtn_style:hover {
+	background-color: #FFCDCD; cursor:pointer;  
+}
