@@ -82,7 +82,51 @@ public class FreeBoardDto {
 		this.fbpw = fbpw;
  
 	}
+	public FreeBoardDto( String cid, String fbtitle, String fbcontent, String fbphoto,
+			             String fbip, String fbpw) { 
+		this.cid = cid; 
+		this.fbtitle = fbtitle;
+		this.fbcontent = fbcontent;
+		this.fbphoto = fbphoto; 
+		this.fbip = fbip; 
+		this.fbpw = fbpw;
+ 
+	}
+	public FreeBoardDto( String cid, String fbtitle, String fbcontent, String fbphoto,
+            String fbip, int fbid, String fbpw) { 
+			this.cid = cid; 
+			this.fbtitle = fbtitle;
+			this.fbcontent = fbcontent;
+			this.fbphoto = fbphoto; 
+			this.fbip = fbip;
+			this.fbid = fbid; 
+			this.fbpw = fbpw;
 
+	}
+
+
+
+	public FreeBoardDto(String fbtitle, String fbcontent, String fbphoto, int fbid, String fbpw) {
+		 
+		this.fbtitle = fbtitle;
+		this.fbcontent = fbcontent;
+		this.fbphoto = fbphoto; 
+		this.fbid = fbid; 
+		this.fbpw = fbpw;
+	}
+	
+	public FreeBoardDto(int fbid, String cid, String aname, String fbtitle, String fbcontent, String fbphoto,
+			String fbip, int fbgroup, String fbpw) { 
+		this.cid = cid;
+		this.aname = aname;
+		this.fbid = fbid; 
+		this.fbtitle = fbtitle;
+		this.fbcontent = fbcontent;
+		this.fbphoto = fbphoto;
+		this.fbip = fbip;
+		this.fbgroup = fbgroup; 
+		this.fbpw = fbpw;
+	}
 
 
 	public int getFbid() {

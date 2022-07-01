@@ -22,7 +22,6 @@
 		<c:if test="${empty customer && empty admin}">
 			<!-- 로그인 전 메뉴 우측부터 고객 센터 회원가입 로그인 -->
 			<ul>
-				<li><a href="${conPath }/boardList.do">고객센터</a></li>
 				<li><a href="${conPath }/joinView.do">회원가입</a></li>
 				<li><a href="${conPath }/loginView.do">로그인</a></li>
 			</ul>	

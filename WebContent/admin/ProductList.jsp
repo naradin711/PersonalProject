@@ -114,7 +114,7 @@
 		</tr>
 	</table>
 			<div class="paging">
-				<a href="${conPath }/CustomerList.do?pageNum=1">◀◀</a>
+				<a href="${conPath }/ProductList.do?pageNum=1">◀◀</a>
 					&nbsp; &nbsp; &nbsp;
 				<c:if test="${startPage > BLOCKSIZE }" >
 					<a href="${conPath }/ProductList.do?pageNum=${startPage-1 }">◀</a>

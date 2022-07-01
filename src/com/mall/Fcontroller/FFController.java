@@ -13,6 +13,7 @@ import com.mall.service.AccViewService;
 import com.mall.service.AddProductService;
 import com.mall.service.AdminProductViewService;
 import com.mall.service.BestSellerViewService;
+import com.mall.service.BoardListService;
 import com.mall.service.BotViewService;
 import com.mall.service.CJoinService;
 import com.mall.service.CLoginService;
@@ -25,10 +26,16 @@ import com.mall.service.CustomerViewService;
 import com.mall.service.DeleteCustomerService;
 import com.mall.service.DeleteCustomerService2;
 import com.mall.service.DressViewService;
+import com.mall.service.FreeBoardDeleteService;
+import com.mall.service.FreeBoardModifyService;
+import com.mall.service.FreeBoardReplyService;
+import com.mall.service.FreeBoardViewService;
+import com.mall.service.FreeBoardWriteService;
 import com.mall.service.IdConfirmService;
 import com.mall.service.ProductDeleteService;
 import com.mall.service.ProductListService;
 import com.mall.service.ProductModifyService;
+import com.mall.service.ReviewListService;
 import com.mall.service.Service;
 import com.mall.service.TopViewService;
 import com.mall.service.WhatsNewService;
@@ -175,8 +182,10 @@ public class FFController extends HttpServlet {
 			service.execute(request, response); // aid parameter로 idConfirm한 결과를 request로 객체 set
 			viewPage = "main1.do";
 		} else if (command.equals("/CustomerProductView.do")) { // ID 중복 체크하기
-			service = new CustomerProductService();//  
+			service = new CustomerProductService();//
+			Service service1 = new ReviewListService();//
 			service.execute(request, response); // pid parameter로 idConfirm한 결과를 request로 객체 set
+			service1.execute(request, response);
 			viewPage = "customer/customer_Product_View.jsp";
 		} 
 		 //
@@ -232,7 +241,61 @@ public class FFController extends HttpServlet {
 			service = new BotViewService();//  
 			service.execute(request, response); // pid parameter로 idConfirm한 결과를 request로 객체 set
 			viewPage = "product/bottoms.jsp";
-		};
+		}
+		 //
+		 // INDEX FREEBOARD
+		 //
+	      else if (command.equals("/boardList.do")) { // ID 중복 체크하기
+			service = new BoardListService();//  
+			service.execute(request, response); // pid parameter로 idConfirm한 결과를 request로 객체 set
+			viewPage = "freeboard/freeboard.jsp";
+		} else if (command.equals("/FreeBoardWrite.do")) { // ID 중복 체크하기
+			service = new FreeBoardWriteService();//  
+			service.execute(request, response); // aid parameter로 idConfirm한 결과를 request로 객체 set
+			viewPage = "boardList.do";
+		} else if (command.equals("/FreeBoardView.do")) { // ID 중복 체크하기
+			service = new FreeBoardViewService();//  
+			service.execute(request, response); // aid parameter로 idConfirm한 결과를 request로 객체 set
+			viewPage = "freeboard/freeBoardView.jsp";
+		} else if (command.equals("/FreeBoardModifyView.do")) { // ID 중복 체크하기
+			doAction = true;
+			service = new FreeBoardViewService();//  
+			service.execute(request, response); // pid parameter로 idConfirm한 결과를 request로 객체 set
+			viewPage = "freeboard/freeBoardModifyView.jsp";
+		} else if (command.equals("/FreeBoardModify.do")) { // ID 중복 체크하기
+			if(doAction) {
+			service = new FreeBoardModifyService();//  
+			service.execute(request, response); // pid parameter로 idConfirm한 결과를 request로 객체 set
+			doAction = false;
+			}
+			viewPage = "boardList.do";
+		} else if (command.equals("/FreeBoardDeleteView.do")) { // ID 중복 체크하기
+			doAction = true;
+			service = new FreeBoardViewService();//
+			service.execute(request, response); // pid parameter로 idConfirm한 결과를 request로 객체 set
+			viewPage = "freeboard/freeBoardDeleteView.jsp";
+		} else if (command.equals("/FreeBoardDelete.do")) { // ID 중복 체크하기
+			if(doAction) {
+			service = new FreeBoardDeleteService();//  
+			service.execute(request, response); // pid parameter로 idConfirm한 결과를 request로 객체 set
+			doAction = false;
+			}
+			viewPage = "boardList.do";
+		} else if (command.equals("/FreeBoardReplyView.do")) { // ID 중복 체크하기
+			doAction = true;
+			service = new FreeBoardViewService();//
+			service.execute(request, response); // pid parameter로 idConfirm한 결과를 request로 객체 set
+			viewPage = "freeboard/freeBoardReplyView.jsp";
+		} else if (command.equals("/FreeBoardReply.do")) { // ID 중복 체크하기
+			if(doAction) {
+			service = new FreeBoardReplyService();//  
+			service.execute(request, response); // pid parameter로 idConfirm한 결과를 request로 객체 set
+			doAction = false;
+			}
+			viewPage = "boardList.do";
+		}
+		
+		;
 		 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

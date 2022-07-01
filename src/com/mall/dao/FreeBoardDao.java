@@ -1,6 +1,7 @@
 package com.mall.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -63,13 +64,14 @@ public class FreeBoardDao {
 				String fbtitle 	= rs.getString("fbtitle");      
 			    String fbcontent = rs.getString("fbcontent");    
 			    String fbphoto 	 = rs.getString("fbphoto");
-			    String fbip 		= rs.getString("fbip");
-			    int fbgroup 		= rs.getInt("fbgroup");
+			    String fbip 	 = rs.getString("fbip");
+			    Date fbrdate 	 = rs.getDate("fbrdate");
+			    int fbgroup 	 = rs.getInt("fbgroup");
 			    int fbstep 		= rs.getInt("fbstep");
 			    int fbindent 	= rs.getInt("fbindent");
 			    String fbpw 	= rs.getString("fbpw");
 			     
-			    freeboards.add(new FreeBoardDto(fbid, cid, aname, fbtitle, fbcontent, fbphoto, fbip, fbgroup, fbstep, fbindent, fbpw));   
+			    freeboards.add(new FreeBoardDto(fbid, cid, aname, fbtitle, fbcontent, fbphoto, fbrdate, fbip, fbgroup, fbstep, fbindent, fbpw) );   
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -125,17 +127,23 @@ public class FreeBoardDao {
 		String sql = "INSERT INTO FREEBOARD_SHOP (fbid, cID, aname, fbtitle, fbcontent,  " + 
 				" fbphoto, fbip, fbgroup, fbstep, fbindent, fbpw) " + 
 				" VALUES (FBSHOP_SEQ.NEXTVAL, ? , NULL, ? , ? ,  " + 
-				" '? , ? , FBSHOP_SEQ.CURRVAL, 0, 0, ? ) "; 
+				" ? , ? , FBSHOP_SEQ.CURRVAL, 0, 0, ? ) "; 
 				 
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, dto.getCid());
+			System.out.println(1);
 			pstmt.setString(2, dto.getFbtitle());
+			System.out.println(2);
 			pstmt.setString(3, dto.getFbcontent());
+			System.out.println(3);
 			pstmt.setString(4, dto.getFbphoto());
+			System.out.println(4);
 			pstmt.setString(5, dto.getFbip());
+			System.out.println(5);
 			pstmt.setString(6, dto.getFbpw());
+			System.out.println(6);
 			result = pstmt.executeUpdate();
 			System.out.println(result==SUCCESS? "글 작성 성공":"글 작성 실패");
 			
@@ -174,12 +182,13 @@ public class FreeBoardDao {
 				String fbtitle 	= rs.getString("fbtitle");      
 			    String fbcontent = rs.getString("fbcontent");    
 			    String fbphoto 	 = rs.getString("fbphoto");
+			    Date fbrdate 	 = rs.getDate("fbrdate");
 			    String fbip 		= rs.getString("fbip");
 			    int fbgroup 		= rs.getInt("fbgroup");
 			    int fbstep 		= rs.getInt("fbstep");
 			    int fbindent 	= rs.getInt("fbindent");
 			    String fbpw 	= rs.getString("fbpw");
-				dto = new FreeBoardDto(fbid, cid, aname, fbtitle, fbcontent, fbphoto, fbip, fbgroup, fbstep, fbindent, fbpw);
+				dto = new FreeBoardDto(fbid, cid, aname, fbtitle, fbcontent, fbphoto, fbrdate, fbip, fbgroup, fbstep, fbindent, fbpw);
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -211,15 +220,22 @@ public class FreeBoardDao {
 				" 								FBCONTENT =  ? , " + 
 				"								FBPHOTO =  ? , " + 
 				"								FBIP =  ? " + 
-				"								WHERE FBID = ? ";
+				"								WHERE FBID = ? AND FBPW = ? ";
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString (1, freeboard.getFbtitle());
+			System.out.println(11);
 			pstmt.setString (2, freeboard.getFbcontent());
+			System.out.println(22);
 			pstmt.setString (3, freeboard.getFbphoto());
+			System.out.println(33);
 			pstmt.setString (4, freeboard.getFbip());
-			pstmt.setInt 	(5, freeboard.getFbid());
+			System.out.println(44);
+			pstmt.setInt 	(5, freeboard.getFbid()); 
+			System.out.println(55);
+			pstmt.setString (6, freeboard.getFbpw());
+			System.out.println(66);
 			result = pstmt.executeUpdate();
 			System.out.println(result==SUCCESS? "글 수정 성공" : "글 수정 실패");
 		
@@ -241,16 +257,17 @@ public class FreeBoardDao {
 //	COMMIT;
 //	DELETE FROM FREEBOARD_SHOP WHERE FBID=3 AND FBPW = '111';
 //	ROLLBACK;                      
- 	public int DeleteFreeBoard (int fbid) {
+ 	public int DeleteFreeBoard (int fbid, String fbpw) {
 	int result = FAIL;
 	Connection 		   conn = null;
 	PreparedStatement pstmt = null; 
-	String sql = " DELETE FROM FREEBOARD_SHOP WHERE FBID= ? " + 
+	String sql = " DELETE FROM FREEBOARD_SHOP WHERE FBID = ? " + 
 			"								    AND FBPW = ? ";
 	try {
 		conn = ds.getConnection();
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setInt (1, fbid);
+		pstmt.setString (2, fbpw);
 		result = pstmt.executeUpdate();
 		System.out.println(result==SUCCESS? "글 삭제 성공" : "글 삭제 실패");
 	
@@ -280,7 +297,7 @@ public class FreeBoardDao {
 		String sql = "INSERT INTO FREEBOARD_SHOP (fbid, cID, aname, fbtitle, fbcontent, " + 
 				" fbphoto, fbip, fbgroup, fbstep, fbindent, fbpw) " + 
 				" VALUES (FBSHOP_SEQ.NEXTVAL, ? , ? , ? , ? ,  " + 
-				" ? , ? , ? , 1, 1, ? ); "; 
+				" ? , ? , ? , 1, 1, ? ) "; 
 				 
 		try {
 			conn = ds.getConnection();
@@ -298,6 +315,13 @@ public class FreeBoardDao {
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage() + "insert freeboard reply error");
+		} finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(conn!=null) conn.close();
+			} catch (Exception e) {
+				System.out.println(e.getMessage() + "insert freeboard reply error 22"  );
+			}
 		}
 		return result;
 	}

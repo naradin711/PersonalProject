@@ -5,6 +5,15 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
  <c:set var="conPath" value="${pageContext.request.contextPath }"  />    
 <!DOCTYPE html>
+	<c:if test="${ empty customer && empty admin }">
+		<script type="text/javascript">
+			
+			location.href='${conPath}/loginView.do'
+			alert('로그인 후 이용해 주세요!');	
+		</script>  
+	</c:if>
+	
+	<c:if test="${ not empty customer || not empty admin }"> 
 <html>
 <head>
 <meta charset="UTF-8">
@@ -15,20 +24,12 @@
 		$(document).ready(function () {
 			
 		});
-</script>
+		
+</script> 
 </head>
 <body>
-	<c:if test="${not empty CustomerModifyResult }">
-		<script type="text/javascript">
-			alert('회원 정보 수정 성공');
-		</script>
-	</c:if>
-	<c:if test="${not empty CustomerModifyErrorMsg }">
-		<script type="text/javascript">
-			alert('회원 정보 수정 실패');
-			history.back();
-		</script>
-	</c:if>
+	
+		 
 	<jsp:include page="../main/header.jsp"/>
 	<div id="content_form">
 	<input type="hidden" name="pid" value="${CustomerProductView.pid }">
@@ -61,6 +62,7 @@
 		</div>
 	</div>
 	<jsp:include page="../main/footer.jsp"/>
-</body>
+ 	
 </body>
 </html>
+</c:if> 

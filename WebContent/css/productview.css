@@ -28,7 +28,7 @@ p {
 #content_form .left{text-align: left;}
 #content_form .paging {text-align: center;}
 #content_form input:not(.btn), #content_form textarea {
-	width: 90%;
+	width: 80px;
 }
 #content_form{
 	width:1000px; margin: 0px auto; height: 1800px; 

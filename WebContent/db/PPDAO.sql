@@ -231,7 +231,8 @@ SELECT ROWNUM RN, A.* FROM
 (select F.*  from FREEBOARD_SHOP F, CUSTOMER_SHOP C 
                  WHERE F.CID = C.CID
                 ORDER BY FBGROUP DESC, fbstep) A ;
-                
+                commit;
+           select * from FREEBOARD_SHOP;
 SELECT * FROM
     (SELECT ROWNUM RN, A.* FROM
     (select F.* from FREEBOARD_SHOP F, CUSTOMER_SHOP C 
@@ -246,7 +247,7 @@ SELECT COUNT(*)CNT FROM FREEBOARD_SHOP;
 -- 3. 글 작성하기. (고객 원글)
 INSERT INTO FREEBOARD_SHOP (fbid, cID, aname, fbtitle, fbcontent,  
         fbphoto, fbip, fbgroup, fbstep, fbindent, fbpw)
-VALUES (FBSHOP_SEQ.NEXTVAL, 'aaa', NULL,'title220702','content23', 
+VALUES (FBSHOP_SEQ.NEXTVAL, 'aaa', NULL,'title220706','content0706001', 
         'NOIMG.JPG', '192.168.10.151', FBSHOP_SEQ.CURRVAL, 0, 0, '111');
 
 -- 4. FBId로 글 dto보기 (글쓴이 이름 추가)
@@ -258,11 +259,11 @@ UPDATE FREEBOARD_SHOP SET FBTITLE = '바뀐제목3',
                             FBCONTENT = '바뀐 본문',
                             fBPHOTO = 'NOIMG.JPG',
                             FBIP = '111.168.151.11'
-                      WHERE FBID = 3; 
+                      WHERE FBID = 3 AND FBPW = '111'; 
                       
 -- (7) 글 삭제하기(FBID, FBPW로 삭제하기)
 COMMIT;
-DELETE FROM FREEBOARD_SHOP WHERE FBID=3 AND FBPW = '111';
+DELETE FROM FREEBOARD_SHOP WHERE FBID=27 AND FBPW = '222';
 ROLLBACK;                      
                       
 -- (9) 답변글 쓰기 (관리자 ONLY)
@@ -280,28 +281,29 @@ DROP TABLE REVIEW;
 DROP SEQUENCE REVIEW_SEQ;
 CREATE SEQUENCE REVIEW_SEQ MAXVALUE 999999 NOCYCLE NOCACHE;
 CREATE TABLE REVIEW (
-                rbid    NUMBER(10)       PRIMARY KEY,
-                CID     VARCHAR2(30)     REFERENCES CUSTOMER_SHOP(CID),
-                pname       VARCHAR2(30)    NOT NULL,
-                rbtitle VARCHAR2(30)     NOT NULL,
-                rbcontent VARCHAR2(3000) NOT NULL,
-                rbphoto VARCHAR2(300),
-                rbrdate DATE DEFAULT SYSDATE,
-                rbip    VARCHAR2(30) NOT NULL,
-                rbpw    VARCHAR2(3000) NOT NULL
+                rbid      NUMBER(10)       PRIMARY KEY,
+                CID       VARCHAR2(30)     REFERENCES CUSTOMER_SHOP(CID),
+                pid       NUMBER(10)       REFERENCES PRODUCT(PID),
+                rbtitle   VARCHAR2(300)    NOT NULL,
+                rbcontent VARCHAR2(3000)   NOT NULL,
+                rbphoto   VARCHAR2(300),
+                rbrdate   DATE             DEFAULT SYSDATE,
+                rbip      VARCHAR2(30)     NOT NULL,
+                rbpw      VARCHAR2(300)    NOT NULL
             );
 
 -- 1. 글 출력 (int startRow, int endRow)
 SELECT ROWNUM RN, A.* FROM
-(select R.*  from REVIEW R, CUSTOMER_SHOP C 
-                 WHERE R.CID = C.CID
-                ORDER BY FBGROUP DESC, fbstep) A ;
+                (select R.*  from REVIEW R, CUSTOMER_SHOP C, product p
+                WHERE R.CID = C.CID AND R.PID = P.PID
+                ORDER BY rbrdate DESC) A ;
                 
 SELECT * FROM
-    (SELECT ROWNUM RN, A.* FROM
-    (select R.* from REVIEW R, CUSTOMER_SHOP C 
-                 WHERE R.CID = C.CID ORDER BY R.RBRDATE DESC)A )
-     WHERE RN BETWEEN 20 AND 28; 
+            (SELECT ROWNUM RN, A.* FROM
+            (select R.*  from REVIEW R, CUSTOMER_SHOP C, product p
+            WHERE R.CID = C.CID AND R.PID = P.PID AND R.PID = 12
+            ORDER BY rbrdate DESC)A )
+            WHERE RN BETWEEN 1 AND 50; 
      
      COMMIT;
 
@@ -310,13 +312,13 @@ SELECT * FROM
 SELECT COUNT(*)CNT FROM REVIEW;
 
 -- 3. 글 작성하기. (고객 원글)
-INSERT INTO REVIEW (Rbid, cID, pname, Rbtitle, Rbcontent, Rbphoto, Rbip, Rbpw)
-VALUES (REVIEW_SEQ.NEXTVAL, 'bbb', 'BLUE TOP', '파란 상의 2206090010','REVIEW025', 
-        'NOIMG.JPG', '192.168.10.151', '111');
+INSERT INTO REVIEW (Rbid, cID, pid, Rbtitle, Rbcontent, Rbphoto, Rbip, Rbpw)
+VALUES (REVIEW_SEQ.NEXTVAL, 'ccc', 20 , '꽃무늬 상의 220707','REVIEW005', 
+        'NOIMG.JPG', '192.168.10.151', '111'); 
 
 -- 4. RBId로 글 dto보기 (글쓴이 이름 추가)
-SELECT R.* from REVIEW R, CUSTOMER_SHOP C 
-           WHERE R.CID = C.CID AND RBID=1;
+SELECT R.* from REVIEW R, CUSTOMER_SHOP C, product p
+           WHERE R.CID = C.CID AND R.PID = P.PID AND RBID=1;
 
 -- 6. 리뷰 수정 (RBID, RBtitle, RBContent, RBPHOTO,  RIp)
 UPDATE REVIEW SET RBTITLE = '바뀐 리뷰 제목 3',

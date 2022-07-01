@@ -34,32 +34,28 @@ public class ReviewDao {
 	}
 	
 //	-- 1. 글 출력 (int startRow, int endRow)
-//	SELECT * FROM
-//	    (SELECT ROWNUM RN, A.* FROM
-//	    (select F.* from Review_SHOP F, CUSTOMER_SHOP C 
-//	                 WHERE F.CID = C.CID
-//	                ORDER BY FBGROUP DESC, FBSTEP )A )
-//	     WHERE RN BETWEEN 5 AND 11; 
-	public ArrayList<ReviewDto> listReview (int startRow, int endRow){
+ 
+	public ArrayList<ReviewDto> listReview (int pid, int startRow, int endRow){
 		ArrayList<ReviewDto> Reviews = new ArrayList<ReviewDto>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet			rs  = null;
 		String sql = "SELECT * FROM " + 
-				" (SELECT ROWNUM RN, A.* FROM " + 
-				" (select R.* from REVIEW R, CUSTOMER_SHOP C  " + 
-				" WHERE R.CID = C.CID ORDER BY R.RBRDATE DESC)A ) " + 
-				" WHERE RN BETWEEN ? AND ? ";
+				"            (SELECT ROWNUM RN, A.* FROM " + 
+				"            (select R.*  from REVIEW R, CUSTOMER_SHOP C, product P " + 
+				"            WHERE R.CID = C.CID AND R.PID = P.PID AND R.PID = ? " + 
+				"            ORDER BY rbrdate DESC) A ) " + 
+				"            WHERE RN BETWEEN ? AND ?   ";
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			pstmt.setInt(1, pid);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				int rbid 		 = rs.getInt("rbid");
 				String cid 		 = rs.getString("cid");
-				String pname	 = rs.getString("pname");
 				String rbtitle 	 = rs.getString("rbtitle");      
 			    String rbcontent = rs.getString("rbcontent");    
 			    String rbphoto 	 = rs.getString("rbphoto");
@@ -67,7 +63,7 @@ public class ReviewDao {
 			    String rbip 	 = rs.getString("rbip"); 
 			    String rbpw 	 = rs.getString("rbpw");	
 			     
-			    Reviews.add(new ReviewDto(rbid, cid, pname, rbtitle, rbcontent, rbphoto, rbrdate, rbip, rbpw) );   
+			    Reviews.add(new ReviewDto(rbid, cid, pid, rbtitle, rbcontent, rbphoto, rbrdate, rbip, rbpw) );   
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -120,7 +116,7 @@ public class ReviewDao {
 		int result = FAIL;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		String sql = "INSERT INTO REVIEW (Rbid, cID, pname, Rbtitle, Rbcontent, Rbphoto, Rbip, Rbpw)\r\n" + 
+		String sql = "INSERT INTO REVIEW (Rbid, cID, pid, Rbtitle, Rbcontent, Rbphoto, Rbip, Rbpw)\r\n" + 
 				"VALUES (REVIEW_SEQ.NEXTVAL, ? , ? , ? , ? ,  " + 
 				"        ? , ? , ? )  "; 
 				 
@@ -128,7 +124,7 @@ public class ReviewDao {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, dto.getCid());
-			pstmt.setString(2, dto.getPname());
+			pstmt.setInt   (2, dto.getPid());
 			pstmt.setString(3, dto.getRbtitle());
 			pstmt.setString(4, dto.getRbcontent());
 			pstmt.setString(5, dto.getRbphoto());
@@ -159,8 +155,8 @@ public class ReviewDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet			rs  = null;
-		String sql = "SELECT F.* from Review_SHOP F, CUSTOMER_SHOP C  " + 
-				"   WHERE F.CID = C.CID AND FBID= ?     ";
+		String sql = "SELECT R.* from REVIEW R, CUSTOMER_SHOP C, product P " + 
+				"           WHERE R.CID = C.CID AND R.PID = P.PID AND RBID= ?";
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -168,7 +164,7 @@ public class ReviewDao {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				String cid 		 = rs.getString("cid");
-				String pname	 = rs.getString("pname");
+				int pid	 		 = rs.getInt("pid");
 				String rbtitle 	 = rs.getString("rbtitle");      
 			    String rbcontent = rs.getString("rbcontent");    
 			    String rbphoto 	 = rs.getString("rbphoto");
@@ -176,7 +172,7 @@ public class ReviewDao {
 			    String rbip 	 = rs.getString("rbip"); 
 			    String rbpw 	 = rs.getString("rbpw");
 			    
-				dto = new ReviewDto(rbid, cid, pname, rbtitle, rbcontent, rbphoto, rbrdate, rbip, rbpw);
+				dto = new ReviewDto(rbid, cid, pid, rbtitle, rbcontent, rbphoto, rbrdate, rbip, rbpw);
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage() + "리뷰 보기");
