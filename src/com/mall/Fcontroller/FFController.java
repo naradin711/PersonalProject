@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.mall.service.AccViewService;
+import com.mall.service.AddCartService;
 import com.mall.service.AddProductService;
 import com.mall.service.AdminProductViewService;
 import com.mall.service.BestSellerViewService;
@@ -32,15 +33,21 @@ import com.mall.service.FreeBoardReplyService;
 import com.mall.service.FreeBoardViewService;
 import com.mall.service.FreeBoardWriteService;
 import com.mall.service.IdConfirmService;
+import com.mall.service.ModifyReviewService;
+import com.mall.service.MyCartService;
 import com.mall.service.ProductDeleteService;
 import com.mall.service.ProductListService;
 import com.mall.service.ProductModifyService;
+import com.mall.service.ReviewContentService;
+import com.mall.service.ReviewDeleteService;
 import com.mall.service.ReviewListService;
 import com.mall.service.Service;
 import com.mall.service.TopViewService;
 import com.mall.service.WhatsNewService;
+import com.mall.service.WriteReviewService;
 import com.mall.service.emailConfirmService;
 import com.mall.service.telConfirmService;
+import com.sun.java.swing.plaf.windows.resources.windows;
 
 @WebServlet("*.do")
 public class FFController extends HttpServlet {
@@ -181,11 +188,13 @@ public class FFController extends HttpServlet {
 			service = new DeleteCustomerService();//  
 			service.execute(request, response); // aid parameter로 idConfirm한 결과를 request로 객체 set
 			viewPage = "main1.do";
-		} else if (command.equals("/CustomerProductView.do")) { // ID 중복 체크하기
+		} else if (command.equals("/CustomerProductView.do")) {  
 			service = new CustomerProductService();//
-			Service service1 = new ReviewListService();//
 			service.execute(request, response); // pid parameter로 idConfirm한 결과를 request로 객체 set
-			service1.execute(request, response);
+			viewPage = "ReviewList.do";
+		} else if (command.equals("/ReviewList.do")) {  
+			 service = new ReviewListService();//
+			 service.execute(request, response);
 			viewPage = "customer/customer_Product_View.jsp";
 		} 
 		 //
@@ -293,6 +302,63 @@ public class FFController extends HttpServlet {
 			doAction = false;
 			}
 			viewPage = "boardList.do";
+		}
+		 //
+		 // INDEX REVIEWBOARD
+		 //
+		else if (command.equals("/WriteReviewView.do")) {  
+			doAction = true; 
+			service = new CustomerProductService();//
+			service.execute(request, response);
+			viewPage = "review/writeReview_view.jsp";
+		} else if (command.equals("/WriteReview.do")) {  
+			if(doAction) {
+			service = new WriteReviewService(); 
+			service.execute(request, response);     
+			viewPage = "CustomerProductView.do";
+			doAction = false;
+			}
+		} else if (command.equals("/ReviewContent.do")) { 
+			service = new ReviewContentService(); 
+			service.execute(request, response);     
+			viewPage = "review/reviewContent.jsp";  
+		} else if (command.equals("/ReviewModifyView.do")) {  
+			doAction = true; 
+			service = new ReviewContentService();
+			service.execute(request, response);
+			viewPage = "review/modifyReview_view.jsp";
+		} else if (command.equals("/ReviewModify.do")) {  
+			if(doAction) {
+			service = new ModifyReviewService(); 
+			service.execute(request, response);     
+			viewPage = "CustomerProductView.do";
+			doAction = false;
+			}
+		} else if (command.equals("/ReviewDeleteView.do")) {  
+			doAction = true; 
+			service = new ReviewContentService();
+			service.execute(request, response);
+			viewPage = "review/deleteReview_view.jsp";
+		} else if (command.equals("/ReviewDelete.do")) {  
+			if(doAction) {
+			service = new ReviewDeleteService(); 
+			service.execute(request, response);     
+			viewPage = "CustomerProductView.do";
+			doAction = false;
+			}
+		}
+		 //
+		 // INDEX CART
+		 //	
+		
+		  else if (command.equals("/addCart.do")) {	  
+			service = new AddCartService();
+			service.execute(request, response);
+			viewPage = "CustomerProductView.do";
+		} else if (command.equals("/MyCart.do")) {	  
+			service = new MyCartService();
+			service.execute(request, response);
+			viewPage = "cart/cartMypage.jsp";
 		}
 		
 		;

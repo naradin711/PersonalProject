@@ -34,7 +34,7 @@ public class CartDao {
 	
 //	-- 1. 글 출력 (int startRow, int endRow)
 	public ArrayList<CartDto> listCart (int startRow, int endRow){
-		ArrayList<CartDto> Carts = new ArrayList<CartDto>();
+		ArrayList<CartDto> dto = new ArrayList<CartDto>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet			rs  = null;
@@ -52,12 +52,12 @@ public class CartDao {
 			while (rs.next()) {
 				int cartid 		= rs.getInt("cartid");
 				String cid 		= rs.getString("cid");
-				String pname	= rs.getString("pname");
-				String ptype 	= rs.getString("ptype");      
+				int pid 		= rs.getInt("pid");
+				String pname	= rs.getString("pname");    
 			    String pphoto 	= rs.getString("pphoto");
 			    int pprice 		= rs.getInt("pprice");
 			     
-			    Carts.add(new CartDto(cartid, cid, pname, ptype, pphoto, pprice));   
+			    dto.add(new CartDto(cartid, cid, pid, pname, pphoto, pprice));   
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -71,7 +71,7 @@ public class CartDao {
 			} 
 		}
 		
-		return Carts;
+		return dto;
 	}
 //	            
 //	-- 2. 글 갯수 세기
@@ -110,22 +110,22 @@ public class CartDao {
 		int result = FAIL;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		String sql = "INSERT INTO CART (CARTid, cID, pname, ptype, pphoto, pprice) " + 
+		String sql = "INSERT INTO CART (CARTid, cID, PID, pname, pphoto, pprice) " + 
 				"VALUES (CART_SEQ.NEXTVAL, ? , ? , ? , ? , ? ) "; 
 				 
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, dto.getCid());
-			pstmt.setString(2, dto.getPname());
-			pstmt.setString(3, dto.getPtype());
+			pstmt.setString(1, dto.getCid()); 
+			pstmt.setInt   (2, dto.getPid());
+			pstmt.setString(3, dto.getPname());
 			pstmt.setString(4, dto.getPphoto());
 			pstmt.setInt   (5, dto.getPprice());
 			result = pstmt.executeUpdate();
 			System.out.println(result==SUCCESS? "장바구니 추가 성공":"장바구니 추가 실패");
 			
 		} catch (Exception e) {
-			System.out.println(e.getMessage() + "insert Cart error");
+			System.out.println(e.getMessage() + " insert Cart Dao error " );
 		} finally {
 			try { 
 				if (pstmt!=null) pstmt.close();
@@ -157,11 +157,11 @@ public class CartDao {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				int cartid 		= rs.getInt("cartid");
-				String pname	= rs.getString("pname");
-				String ptype 	= rs.getString("ptype");      
+				int pid 		= rs.getInt("pid");
+				String pname	= rs.getString("pname");    
 			    String pphoto 	= rs.getString("pphoto");
 			    int pprice 		= rs.getInt("pprice");
-				dto = new CartDto(cartid, cid, pname, ptype, pphoto, pprice);
+				dto = new CartDto(cartid, cid, pid, pname, pphoto, pprice);
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage() + "개인 장바구니 보기");
@@ -177,7 +177,49 @@ public class CartDao {
 		
 		return dto;
 	}
-        
+//	-- 5. FBId로 내가 산 물품 불러오기 
+//	SELECT F.* from Cart_SHOP F, CUSTOMER_SHOP C 
+//	           WHERE F.CID = C.CID AND FBID=1;     
+	public ArrayList<CartDto> listMyCart (String cid, int startRow, int endRow){
+		ArrayList<CartDto> dto = new ArrayList<CartDto>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet			rs  = null;
+		String sql = "SELECT * FROM " + 
+				"    (SELECT ROWNUM RN, A.* FROM " + 
+				"    (select CT.* from CART CT, CUSTOMER_SHOP C " + 
+				"                 WHERE CT.CID = C.CID AND CT.CID = ? ORDER BY CT.CARTID DESC)A ) " + 
+				"     WHERE RN BETWEEN ? AND ? ";
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, cid);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				int cartid 		= rs.getInt("cartid");
+				int pid 		= rs.getInt("pid");
+				String pname	= rs.getString("pname");    
+			    String pphoto 	= rs.getString("pphoto");
+			    int pprice 		= rs.getInt("pprice");
+			     
+			    dto.add(new CartDto(cartid, cid, pid, pname, pphoto, pprice));   
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(conn!=null) conn.close();
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			} 
+		}
+		
+		return dto;
+	}
 //	-- (7) 글 삭제하기(항목별 삭제)
 //	COMMIT;
 //	DELETE FROM Cart_SHOP WHERE FBID=3 AND FBPW = '111';

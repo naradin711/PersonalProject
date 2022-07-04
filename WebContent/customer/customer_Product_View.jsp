@@ -28,11 +28,36 @@
 </script> 
 </head>
 <body>
-	
+	<c:if test="${not empty CartAddResult }">
+		<script type="text/javascript">
+			alert('장바구니 추가에 성공하였습니다.');
+		</script>
+	</c:if>
+	<c:if test="${not empty CartAddError }">
+		<script type="text/javascript">
+			alert('장바구니 추가에 실패하셨습니다.');
+			history.back();
+		</script>
+	</c:if>
+	<script>
+  		var win = undefined;
+  		var i = 0;
+ 		 $(function(){
+			$("#newTab").click(function(){
+      			 win = window.open("http://localhost:8090/PersonalProject/WriteReviewView.do?pid=${CustomerProductView.pid }");
+      			 win.onbeforeunload = function(){
+      		      	console.log(++i + " window closed");
+      		     }	 	 
+    		});
+  		});
+  
+	</script>
 		 
 	<jsp:include page="../main/header.jsp"/>
 	<div id="content_form">
 	<input type="hidden" name="pid" value="${CustomerProductView.pid }">
+	<input type="hidden" name="pageNum" value="${param.pageNum }">
+	
 		<div id="product_image">
 			<img alt="${CustomerProductView.pphoto }" 
 				 src="${conPath }/productFileUp/${CustomerProductView.pphoto}" 
@@ -52,14 +77,17 @@
 					<td>${CustomerProductView.pprice }원</td>	
 				</tr>
 			</table>
-			<a href="${conPath }/addCart.do">
-				<img alt="addCart" src="${conPath }/productFileUp/cart_in.png" width="300">
+			<form action="${conPath }/addCart.do?cid=${customer.cid }&pid=${CustomerProductView.pid }&pname=${CustomerProductView.pname }&pprice=${CustomerProductView.pprice }&pphoto=${CustomerProductView.pphoto }" method="post" enctype="multipart/form-data">
+			<button><img alt="addCart" src="${conPath }/productFileUp/cart_in.png" width="300"></button>
+			</form>
+			<a id ="newTab" >
+				<img alt="review_write" src="${conPath }/productFileUp/review_in.png" width="300">
 			</a>
 			 
 		</div>
-		<div id="review">
-			 
-		</div>
+		<div id="review"> 
+			<jsp:include page="../review/reviewproduct.jsp"/>
+		</div>	
 	</div>
 	<jsp:include page="../main/footer.jsp"/>
  	

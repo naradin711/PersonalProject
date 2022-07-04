@@ -34,6 +34,28 @@ public class ReviewDto {
 		this.rbip = rbip;
 		this.rbpw = rbpw;
 	}
+	public ReviewDto(String cid, int pid, String rbtitle, String rbcontent, String rbphoto,
+			String rbip, String rbpw) {
+		  
+		this.cid = cid;
+		this.pid = pid;
+		this.rbtitle = rbtitle;
+		this.rbcontent = rbcontent;
+		this.rbphoto = rbphoto;
+		this.rbip = rbip;
+		this.rbpw = rbpw;
+	}
+	public ReviewDto(String rbtitle, String rbcontent, String rbphoto,
+			String rbip,int rbid, String rbpw) {
+		   
+		this.rbtitle = rbtitle;
+		this.rbcontent = rbcontent;
+		this.rbphoto = rbphoto;
+		this.rbip = rbip;
+		this.rbid = rbid;
+		this.rbpw = rbpw;
+	}
+
 
 
 

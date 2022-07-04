@@ -2,9 +2,9 @@ package com.mall.dto;
 
 public class CartDto {
 	private int cartid;        
-	private String cid;         
-	private String pname;         
-	private String ptype;         
+	private String cid;
+	private int pid;
+	private String pname;     
 	private String pphoto;        
     private int pprice;
     
@@ -14,19 +14,28 @@ public class CartDto {
 	 
 	}
 
-	
 
 
-	public CartDto(int cartid, String cid, String pname, String ptype, String pphoto, int pprice) {
-	 
+	public CartDto(int cartid, String cid, int pid, String pname, String pphoto, int pprice) {
+		 
 		this.cartid = cartid;
 		this.cid = cid;
+		this.pid = pid;
 		this.pname = pname;
-		this.ptype = ptype;
 		this.pphoto = pphoto;
 		this.pprice = pprice;
 	}
 
+
+
+	public CartDto(String cid, int pid, String pname, String pphoto, int pprice) {
+		super();
+		this.cid = cid;
+		this.pid = pid;
+		this.pname = pname;
+		this.pphoto = pphoto;
+		this.pprice = pprice;
+	}
 
 
 
@@ -36,11 +45,9 @@ public class CartDto {
 
 
 
-
 	public void setCartid(int cartid) {
 		this.cartid = cartid;
 	}
-
 
 
 
@@ -50,11 +57,21 @@ public class CartDto {
 
 
 
-
 	public void setCid(String cid) {
 		this.cid = cid;
 	}
 
+
+
+	public int getPid() {
+		return pid;
+	}
+
+
+
+	public void setPid(int pid) {
+		this.pid = pid;
+	}
 
 
 
@@ -64,25 +81,9 @@ public class CartDto {
 
 
 
-
 	public void setPname(String pname) {
 		this.pname = pname;
 	}
-
-
-
-
-	public String getPtype() {
-		return ptype;
-	}
-
-
-
-
-	public void setPtype(String ptype) {
-		this.ptype = ptype;
-	}
-
 
 
 
@@ -92,11 +93,9 @@ public class CartDto {
 
 
 
-
 	public void setPphoto(String pphoto) {
 		this.pphoto = pphoto;
 	}
-
 
 
 
@@ -106,19 +105,20 @@ public class CartDto {
 
 
 
-
 	public void setPprice(int pprice) {
 		this.pprice = pprice;
 	}
 
 
 
-
 	@Override
 	public String toString() {
-		return "CartDto [cartid=" + cartid + ", cid=" + cid + ", pname=" + pname + ", ptype=" + ptype + ", pphoto="
-				+ pphoto + ", pprice=" + pprice + "]";
+		return "CartDto [cartid=" + cartid + ", cid=" + cid + ", pid=" + pid + ", pname=" + pname + ", pphoto=" + pphoto
+				+ ", pprice=" + pprice + "]";
 	}
+	
+	
+	 
     
 	
     

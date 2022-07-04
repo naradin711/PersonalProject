@@ -25,8 +25,8 @@
 	</c:if>
 	<c:if test="${not empty LoginError }">
 		<script type="text/javascript">
+			location.href='${conPath}/loginView.do'
 			alert('${LoginError}');
-			history.back();
 		</script>
 	</c:if>
 	<c:if test="${not empty ModifyResult }">
@@ -36,8 +36,8 @@
 	</c:if>
 	<c:if test="${not empty ModifyErrorMsg }">
 		<script type="text/javascript">
+			location.href='${conPath}/CustomerModifyView.do'
 			alert('회원 정보 수정 실패');
-			history.back();
 		</script>
 	</c:if>
 	<c:if test="${not empty AdminLoginResult }">
@@ -47,8 +47,8 @@
 	</c:if>
 	<c:if test="${not empty AdminLoginError }">
 		<script type="text/javascript">
-			alert('관리자 로그인에 실패하셨습니다.');
-			history.back();
+			location.href='${conPath}/adminLoginView.do'
+			alert('관리자 로그인에 실패하셨습니다.'); 
 		</script>
 	</c:if>
 	<c:if test="${not empty DeleteCustomerResult }">
@@ -58,8 +58,8 @@
 	</c:if>
 	<c:if test="${not empty DeleteCustomerError }">
 		<script type="text/javascript">
+			location.href='${conPath}/main.do'
 			alert('회원 탈퇴에 실패하셨습니다.');
-			history.back();
 		</script>
 	</c:if>
 	

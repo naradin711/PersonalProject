@@ -301,7 +301,7 @@ SELECT ROWNUM RN, A.* FROM
 SELECT * FROM
             (SELECT ROWNUM RN, A.* FROM
             (select R.*  from REVIEW R, CUSTOMER_SHOP C, product p
-            WHERE R.CID = C.CID AND R.PID = P.PID AND R.PID = 12
+            WHERE R.CID = C.CID AND R.PID = P.PID AND R.PID = 20
             ORDER BY rbrdate DESC)A )
             WHERE RN BETWEEN 1 AND 50; 
      
@@ -325,7 +325,7 @@ UPDATE REVIEW SET RBTITLE = '바뀐 리뷰 제목 3',
                     RBCONTENT = '바뀐 리뷰 본문 33',
                     RBPHOTO = 'NOIMG.JPG',
                     RBIP = '103.133.133.33'
-                WHERE RBID = 3; 
+                WHERE RBID = 50 and RBPW = 111; 
                       
 -- (7) 리뷰 삭제하기(RBID, RBPW로 삭제하기)
 COMMIT;
@@ -335,15 +335,15 @@ ROLLBACK;
 --------------------------------------------------------------------
                         -- CART TABLE
 --------------------------------------------------------------------
-DROP TABLE CART;
+DROP TABLE CART CASCADE CONSTRAINTS;
 DROP SEQUENCE CART_SEQ;
 CREATE SEQUENCE CART_SEQ MAXVALUE 999999 NOCYCLE NOCACHE;
 CREATE TABLE CART (
                 cartid      NUMBER(10)      PRIMARY KEY,
                 CID         VARCHAR2(30)    REFERENCES CUSTOMER_SHOP(CID),
+                PID         NUMBER(10)      REFERENCES PRODUCT(PID),
                 pname       VARCHAR2(30)    NOT NULL,
-                ptype       VARCHAR2(30)    NOT NULL,
-                pphoto      VARCHAR2(300)   NOT NULL,
+                pphoto      VARCHAR2(300)   ,
                 pprice      NUMBER(10)      NOT NULL
                  );
 -- 1. 글 출력 (int startRow, int endRow)
@@ -365,14 +365,13 @@ SELECT * FROM
 SELECT COUNT(*)CNT FROM CART;
 
 -- 3. 장바구니 추가. (고객 입장)
-INSERT INTO CART (CARTid, cID, pname, ptype, pphoto, pprice)
-VALUES (CART_SEQ.NEXTVAL, 'aaa', 'WHITE DRESS', 'DRESS', 'NOIMG.JPG', 50000);
+INSERT INTO CART (CARTid, cID, PID, pname, pphoto, pprice)
+VALUES (CART_SEQ.NEXTVAL, 'aaa', 44, 'BLACK HARRY POTTER', 'dress_harrypotter.jpg', 405000);
+INSERT INTO CART (CARTid, cID, PID, pname, pphoto, pprice)
+VALUES (CART_SEQ.NEXTVAL, 'bbb', 44, 'BLACK HARRY POTTER', 'dress_harrypotter.jpg', 405000);
+INSERT INTO CART (CARTid, cID, PID, pname, pphoto, pprice)
+VALUES (CART_SEQ.NEXTVAL, 'ccc', 44, 'BLACK HARRY POTTER', 'dress_harrypotter.jpg', 405000);
 
-INSERT INTO CART (CARTid, cID, pname, ptype, pphoto, pprice)
-VALUES (CART_SEQ.NEXTVAL, 'aaa','BLUE TOP', 'TOP', 'NOIMG.JPG', 43000);
-
-INSERT INTO CART (CARTid, cID, pname, ptype, pphoto, pprice)
-VALUES (CART_SEQ.NEXTVAL, 'bbb', 'BLUE TOP', 'TOP', 'NOIMG.JPG', 43000);
 
 -- 4. CID로 CART dto보기 (개인 장바구니 목록 출력)
 select CT.* from CART CT, CUSTOMER_SHOP C
@@ -402,8 +401,10 @@ CREATE TABLE ORDERLIST (
                 ODID        NUMBER(10)      PRIMARY KEY,
                 cartid      NUMBER(10)      REFERENCES CART(cartid),
                 CID         VARCHAR2(30)    REFERENCES CUSTOMER_SHOP(CID),
+                PID         NUMBER(10)      REFERENCES PRODUCT(PID),
+                ODtitle     VARCHAR2(300)   NOT NULL,
+                ODaddress   VARCHAR2(300)   NOT NULL,
                 pname       VARCHAR2(30)    NOT NULL,
-                ptype       VARCHAR2(30)    NOT NULL,
                 pphoto      VARCHAR2(300)   NOT NULL,
                 pprice      NUMBER(10)      NOT NULL,
                 ODCALL      VARCHAR2(30)    DEFAULT 'N',

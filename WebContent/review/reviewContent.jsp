@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>고객 센터 글 상세보기</title>
+<title>리 뷰 상 세 보 기</title>
 <link href="${conPath }/css/productview.css " rel="stylesheet" type="text/css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript">
@@ -17,46 +17,42 @@
 		});
 </script>
 </head>
-<body>  
+<body>
 	<jsp:include page="../main/header.jsp"/>
 	<div id="content_form">
+	<input type="hidden" name="pid" value="${param.pid }">	 
 	 	<div id="product_image">
-			<img alt="${FreeBoardView.fbphoto }" 
-				 src="${conPath }/freeboardFileUp/${FreeBoardView.fbphoto}" 
+			<img alt="${ReviewView.rbphoto }" 
+				 src="${conPath }/reviewFileUp/${ReviewView.rbphoto}" 
 				 width="520"> 
 		</div>
 		<div id="product_info">
 			<table>
 				<tr>
-					<td colspan="2">${FreeBoardView.fbtitle }</td>	
+					<td colspan="2">${ReviewView.rbtitle }</td>	
 				</tr>
 				<tr>
-					<td colspan="2"><pre>${FreeBoardView.fbcontent }</pre></td>	
+					<td colspan="2"><pre>${ReviewView.rbcontent }</pre></td>	
 				</tr>
 				<tr>
 					<th>작성일자</th>
 					<td>
-						<fmt:formatDate value="${FreeBoardView.fbrdate }" pattern="yy년 MM월 dd일"/>
+						<fmt:formatDate value="${ReviewView.rbrdate }" pattern="yy년 MM월 dd일"/>
 					</td>	
 				</tr>
 				<tr>
 					<th>작성 IP</th>
-					<td>${FreeBoardView.fbip }</td>	
+					<td>${ReviewView.rbip }</td>	
 				</tr>
 				<tr>
 					<td colspan="2">
-						<input type="button" value="글 수정하기" onclick="location='${conPath }/FreeBoardModifyView.do?fbid=${FreeBoardView.fbid}&pageNum=${param.pageNum}'">
-						<input type="button" value="글 삭제하기" onclick="location='${conPath }/FreeBoardDeleteView.do?fbid=${FreeBoardView.fbid}'">
-						
-						<c:if test="${not empty admin }">
-						<input type="button" value="답글 달기" onclick="location='${conPath }/FreeBoardReplyView.do?fbid=${FreeBoardView.fbid}&pageNum=${param.pageNum}'">
-						</c:if>
+						<input type="button" value="글 수정하기" onclick="location='${conPath }/ReviewModifyView.do?rbid=${ReviewView.rbid}&pid=${param.pid }&pageNum=${param.pageNum}'">
+						<input type="button" value="글 삭제하기" onclick="location='${conPath }/ReviewDeleteView.do?rbid=${ReviewView.rbid}&pid=${param.pid }&pageNum=${param.pageNum}'">
 					</td>	
 				</tr>
 			</table> 
 		</div> 
 	</div>
 	<jsp:include page="../main/footer.jsp"/>
- 	
 </body>
 </html>

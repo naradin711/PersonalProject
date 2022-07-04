@@ -12,7 +12,7 @@ public class ProductListService implements Service {
 		String pageNum = request.getParameter("pageNum");
 		if(pageNum == null) pageNum="1";
 		int currentPage = Integer.parseInt(pageNum);
-		final int PAGESIZE = 6, BLOCKSIZE = 3;
+		final int PAGESIZE = 10, BLOCKSIZE = 1;
 		int startRow = ((currentPage-1)*PAGESIZE)+1;
 		int endRow = startRow + PAGESIZE-1 ;
 		ProductDao pDao = ProductDao.getInstance();

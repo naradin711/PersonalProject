@@ -45,7 +45,7 @@ public class ReviewDao {
 				"            (select R.*  from REVIEW R, CUSTOMER_SHOP C, product P " + 
 				"            WHERE R.CID = C.CID AND R.PID = P.PID AND R.PID = ? " + 
 				"            ORDER BY rbrdate DESC) A ) " + 
-				"            WHERE RN BETWEEN ? AND ?   ";
+				"            WHERE RN BETWEEN ?  AND  ?   ";
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -200,11 +200,11 @@ public class ReviewDao {
 		int result = FAIL;
 		Connection 		   conn = null;
 		PreparedStatement pstmt = null; 
-		String sql = "UPDATE SET RBTITLE 	= ? , " + 
-				"                RBCONTENT 	= ? , " + 
-				"                RBPHOTO 	= ? , " + 
-				"                RBIP 		= ? " + 
-				"                WHERE RBID = ? ";
+		String sql = "UPDATE REVIEW SET RBTITLE 	= ? , " + 
+				"                		RBCONTENT 	= ? , " + 
+				"                		RBPHOTO 	= ? , " + 
+				"                		RBIP 		= ? " + 
+				"                		WHERE RBID = ? AND RBPW = ? ";
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -213,6 +213,7 @@ public class ReviewDao {
 			pstmt.setString (3, Review.getRbphoto());
 			pstmt.setString (4, Review.getRbip());
 			pstmt.setInt 	(5, Review.getRbid());
+			pstmt.setString (6, Review.getRbpw());
 			result = pstmt.executeUpdate();
 			System.out.println(result==SUCCESS? "리뷰 수정 성공" : "리뷰 수정 실패");
 		
@@ -238,7 +239,7 @@ public class ReviewDao {
 	int result = FAIL;
 	Connection 		   conn = null;
 	PreparedStatement pstmt = null; 
-	String sql = " DELETE FROM FROM REVIEW WHERE RBID= ? AND RBPW = ? ";
+	String sql = " DELETE FROM REVIEW WHERE RBID= ? AND RBPW = ? ";
 	try {
 		conn = ds.getConnection();
 		pstmt = conn.prepareStatement(sql);

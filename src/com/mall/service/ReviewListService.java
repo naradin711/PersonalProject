@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.mall.dao.FreeBoardDao;
+import com.mall.dao.ReviewDao;
 
 public class ReviewListService implements Service {
 
@@ -12,12 +13,13 @@ public class ReviewListService implements Service {
 		String pageNum = request.getParameter("pageNum");
 		if(pageNum == null) pageNum="1";
 		int currentPage = Integer.parseInt(pageNum);
-		final int PAGESIZE = 10, BLOCKSIZE = 50;
+		final int PAGESIZE = 5, BLOCKSIZE = 5;
+		int pid = Integer.parseInt(request.getParameter("pid")) ;
 		int startRow = ((currentPage-1)*PAGESIZE)+1;
 		int endRow = startRow + PAGESIZE-1 ;
-		FreeBoardDao fDao = FreeBoardDao.getInstance();
-		request.setAttribute("list", fDao.listFreeBoard(startRow, endRow) );//글목록
-		int totalCnt = fDao.getFreeBoardCnt() ;
+		ReviewDao rvDao = ReviewDao.getInstance();
+		request.setAttribute("Reviewlist", rvDao.listReview(pid, startRow, endRow) );//글목록
+		int totalCnt = rvDao.getReviewCnt();
 		int pageCnt = (int)Math.ceil((double)totalCnt/PAGESIZE);// 페이지 수
 		int startPage = ((currentPage-1)/BLOCKSIZE)*BLOCKSIZE + 1;
 		int endPage = startPage + BLOCKSIZE -1;

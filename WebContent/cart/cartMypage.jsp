@@ -49,7 +49,51 @@
 			</table>
 		</div>
 		<div id="main_banner">
-			<jsp:include page="../customer/customerInfo.jsp"/>
+			<input type="hidden" name="cid" value="${dto.cid }">
+			<table>
+				<caption>내 장바구니 목록 </caption>
+				<c:if test="${list.size() eq 0 }">
+					<tr><th>등록된 상품이 없습니다.</th></tr>
+				</c:if>
+			<c:if test="${list.size() != 0 }">
+		 	<tr> <th>장바구니 번호</th> <th>물품명</th> <th>가격</th> <th>사진</th></tr>
+				<c:forEach var="dto" items="${list }">	
+					<tr>	
+						<td> 
+							${dto.cartid } 
+						</td>
+						<td>
+							${dto.pname }
+							
+						</td>
+						<td> 
+							${dto.pprice }원
+						</td>
+						<td>
+							<img alt="productImg" src="${conPath }/productFileUp/${dto.pphoto}" width="120">
+					 	</td>
+		   			</tr>		
+			</c:forEach>
+			<tr>
+				<td colspan="4">
+					<c:set var = "total" value = "0" />
+						<c:forEach var="dto" items="${list }">	
+							<c:set var= "total" value="${total + dto.pprice}"/>	
+						</c:forEach>
+					구매 합계 :  <c:out value="${total}"/>원
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<button onclick="location='${conPath }/OrderView.do'">주문하기</button>
+					<button onclick="location='${conPath }/DeleteCart.do'">회원 탈퇴</button> 
+				</td>
+			</tr>
+			
+		</c:if>
+		
+		
+	</table>
 		</div>
 	</div>
 	<jsp:include page="../main/footer.jsp"/>
