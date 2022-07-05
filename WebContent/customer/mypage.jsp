@@ -36,7 +36,7 @@
 		<div id="side_banner">
 			<table>
 				<tr>
-					<td><a>상세 정보</a></td>
+					<td><a href="${conPath }/mypage.do?cid=${customer.cid }">상세 정보</a></td>
 				</tr>
 				<tr>
 					<td>
@@ -44,7 +44,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td><a>구매내역</a></td>
+					<td><a href="${conPath }/MyOrder.do?cid=${customer.cid }">구매내역</a></td>
 				</tr>
 			</table>
 		</div>

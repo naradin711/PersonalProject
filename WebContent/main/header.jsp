@@ -37,15 +37,16 @@
 		</c:if>
 		<c:if test="${ admin != null }">
 			<ul>
+				<li><a href="${conPath }/OrderList.do">주문 목록</a></li>
 				<li><a href="${conPath }/CustomerList.do">고객 목록</a></li>
 				<li><a href="${conPath }/ProductList.do">상품 목록</a></li>
-				<li><a href="${conPath }/boardList.do">고객센터</a></li>
+				<li><a href="${conPath }/boardList.do">고객 센터</a></li>
 				<li><a href="${conPath }/logout.do">관리자 모드 나가기</a></li>
 				<li><a href="#">${admin.aname }님 </a></li>
 			</ul>		
 		</c:if>
 		</div>
-		<div class="logo" onclick="location.href='${conPath }/main/main.jsp'">
+		<div class="logo" onclick="location='${conPath }/main.do'">
 			<img alt="로고이미지" src="${conPath}/img/logo.png">
 		</div>
 		<div class="lnb">

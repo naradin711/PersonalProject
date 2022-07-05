@@ -256,16 +256,16 @@ public class CartDao {
 	int result = FAIL;
 	Connection 		   conn = null;
 	PreparedStatement pstmt = null; 
-	String sql = " DELETE FROM CART WHERE CID = ? ";
+	String sql = "DELETE FROM CART WHERE CID = ? ";
 	try {
 		conn = ds.getConnection();
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString (1, cid);
 		result = pstmt.executeUpdate();
-		System.out.println(result==SUCCESS? "장바구니 전체 삭제 성공" : "장바구니 전체 삭제 실패");
+		System.out.println(result==FAIL?  "장바구니 전체 삭제 실패 Dao" : "장바구니 전체 삭제 성공 Dao");
 	
 	} catch (Exception e) {
-		System.out.println(e.getMessage()+"CartAll Delete Error");
+		System.out.println(e.getMessage()+" CartAll Delete Error");
 	} finally {
 		try {
 			if(pstmt!=null) pstmt.close();

@@ -53,24 +53,24 @@
 		</c:if>
 	</table>
 			<div class="paging">
-				<a href="${conPath }/BestSellerView.do?pageNum=1">◀◀</a>
+				<a href="${conPath }/WhatsNewView.do?pageNum=1">◀◀</a>
 					&nbsp; &nbsp; &nbsp;
 				<c:if test="${startPage > BLOCKSIZE }" >
-					<a href="${conPath }/BestSellerView.do?pageNum=${startPage-1 }">◀</a>
+					<a href="${conPath }/WhatsNewView.do?pageNum=${startPage-1 }">◀</a>
 				</c:if>
 				<c:forEach var="i" begin="${startPage }" end="${endPage }">
 					<c:if test="${i eq pageNum }">
 						[<b> ${i } </b>]
 					</c:if>
 					<c:if test="${i != pageNum }">
-						[<a href="${conPath }/BestSellerView.do?pageNum=${i}"> ${i } </a>]
+						[<a href="${conPath }/WhatsNewView.do?pageNum=${i}"> ${i } </a>]
 					</c:if>
 				</c:forEach>
 				<c:if test="${endPage < pageCnt }">
-					<a href="${conPath }/BestSellerView.do?pageNum=${endPage + 1}"> ▶ </a>
+					<a href="${conPath }/WhatsNewView.do?pageNum=${endPage + 1}"> ▶ </a>
 				</c:if>
 				&nbsp; &nbsp; &nbsp;
-				<a href="${conPath }/BestSellerView.do?pageNum=${pageCnt}">▶▶</a>
+				<a href="${conPath }/WhatsNewView.do?pageNum=${pageCnt}">▶▶</a>
 				<br> 
 			</div> 
 		</div>

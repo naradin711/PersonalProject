@@ -1,22 +1,23 @@
 @charset "UTF-8";
 #loginForm_wrap {
-	width:430px;
+	width: 780px;
 	margin: 75px auto;
 	padding:50px 100px;
 }
 #loginForm_wrap table {margin: 0 auto; text-align: center;}
-#loginForm_wrap table tr{height: 40px; text-align: center;  background-color: #FFCDCD;}
+#loginForm_wrap table tr{height: 50px; text-align: center;  background-color: #FFCDCD;}
 #loginForm_wrap table th{
-	width: 120px;
+	width: 200px;
 	color: #003300;
 	text-align: center;
 	padding-left: 10px;
+	pading : 5px;
 }
 #loginForm_wrap table  td {
-	width:500px;
+	width:550px;
+	pading : 5px;
 	text-align: center;
-}
-#cid, #cpw { border: 1px solid #003300; width: 95%; padding: 3px;}
+} 
 #loginForm_wrap table  tr #login_findIdPw{
 	height: 20px;
 	text-align: right;

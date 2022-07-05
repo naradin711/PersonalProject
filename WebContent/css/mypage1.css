@@ -28,10 +28,10 @@ p {
 #content_form .left{text-align: left;}
 #content_form .paging {text-align: center;}
 #content_form input:not(.btn), #content_form textarea {
-	width: 50%;
+	width: 90%;
 }
 #content_form{
-	width:1000px; margin: 0px auto; height: 1800px; 
+	width:1000px; margin: 0px auto; height: 3000px; 
 	text-align: center;
 	color: #003300;
 	padding-top:50px;
@@ -39,19 +39,19 @@ p {
 }
 
 #side_banner {
-	width:200px; margin: 10px auto; height: 1500px; 
+	width:200px; margin: 10px auto; height: 3000px; 
 	text-align: center;
 	color: #003300; 
 	float: left;
-	 margin-left : 20px;
+	  margin-left : 20px;
 }
 
 #main_banner {
-	width:650px; 
+	width:650px; height: 3000px; 
 	margin: 10px auto; 
-	margin-left : 20px;
-	height: 1500px; 
+	margin-left : 20px; 
 	text-align: center;
 	color: #003300;
-	float: left;  
+	float: left; 
+	 
 }

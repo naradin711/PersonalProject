@@ -12,6 +12,6 @@
 	<link href="${conPath }/css/style2.css " rel="stylesheet" type="text/css">
 </head>
 <body>
-	<jsp:forward page="main.do"/>
+	<jsp:forward page="main1.do"/>
 </body>
 </html>

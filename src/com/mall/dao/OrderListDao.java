@@ -40,7 +40,7 @@ public class OrderListDao {
 //	                ORDER BY FBGROUP DESC, FBSTEP )A )
 //	     WHERE RN BETWEEN 5 AND 11; 
 	public ArrayList<OrderListDto> listOrderList (int startRow, int endRow){
-		ArrayList<OrderListDto> OrderLists = new ArrayList<OrderListDto>();
+		ArrayList<OrderListDto> list = new ArrayList<OrderListDto>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet			rs  = null;
@@ -57,17 +57,14 @@ public class OrderListDao {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				int odid 		= rs.getInt("odid");
-				int cartid 		= rs.getInt("cartid");
 				String cid 		= rs.getString("cid");
-				String caddress = rs.getString("caddress");
-				String pname 		= rs.getString("pname");
-				String ptype 		= rs.getString("ptype");
-				String pphoto 		= rs.getString("pphoto");
-				int pprice 			= rs.getInt("pprice");
+				String odtitle = rs.getString("odtitle");
+				String odaddress = rs.getString("odaddress");
+				int odprice 		= rs.getInt("odprice");
 				String odcall 		= rs.getString("odcall");
 				Date oddate			= rs.getDate("oddate");
 				
-			    OrderLists.add(new OrderListDto(odid, cartid, cid, caddress, pname, ptype, pphoto, pprice, odcall, oddate) );   
+			    list.add(new OrderListDto(odid, cid, odtitle, odaddress, odprice, odcall, oddate) );   
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -81,7 +78,7 @@ public class OrderListDao {
 			} 
 		}
 		
-		return OrderLists;
+		return list;
 	}
 //	            
 //	-- 2. 글 갯수 세기
@@ -116,22 +113,20 @@ public class OrderListDao {
 //	        fbphoto, fbip, fbgroup, fbstep, fbindent, fbpw)
 //	VALUES (FBSHOP_SEQ.NEXTVAL, 'aaa', NULL,'title220702','content23', 
 //	        'NOIMG.JPG', '192.168.10.151', FBSHOP_SEQ.CURRVAL, 0, 0, '111');
-	public int insertOrderList(OrderListDto dto) {
+	public int insertOrderList (OrderListDto dto) {
 		int result = FAIL;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		String sql = " INSERT INTO ORDERLIST (ODID, CARTid, cID, pname, ptype, pphoto, pprice) " + 
-				"VALUES (ORDERLIST_SEQ.NEXTVAL, ? , ? , ? , ? , ? , ? ); "; 
+		String sql = " INSERT INTO ORDERLIST (ODID, cID, ODTITle, ODaddress, odprice) " + 
+				"VALUES (ORDERLIST_SEQ.NEXTVAL, ? , ? , ? , ?) "; 
 				 
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, dto.getCartid());
-			pstmt.setString(2, dto.getCid());
-			pstmt.setString(3, dto.getPname());
-			pstmt.setString(4, dto.getPtype());
-			pstmt.setString(5, dto.getPphoto());
-			pstmt.setInt(6, dto.getPprice());
+			pstmt.setString(1, dto.getCid());
+			pstmt.setString(2, dto.getOdtitle());
+			pstmt.setString(3, dto.getOdaddress());
+			pstmt.setInt(4, dto.getOdprice());
 			result = pstmt.executeUpdate();
 			System.out.println(result==SUCCESS? "주문 작성 성공":"주문 작성 실패");
 			
@@ -151,17 +146,18 @@ public class OrderListDao {
 		int result = FAIL;
 		Connection 		   conn = null;
 		PreparedStatement pstmt = null; 
-		String sql = "UPDATE ORDERLIST SET ODCALL = 'Y' " + 
-				"                 		WHERE ODID = ? ";
+		String sql = "UPDATE ORDERLIST SET ODtitle = CONCAT( ODtitle, ' - 처리 완료.') , " + 
+				"                     	   ODCALL  = 'Y' " + 
+				"                 WHERE ODID = ? " ;
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, odid);
 			result = pstmt.executeUpdate();
-			System.out.println(result==SUCCESS? "주문 처리 성공" : "주문 처리 실패");
+			System.out.println(result==SUCCESS? " 주문 처리 성공 " : " 주문 처리 실패 ");
 		
 		} catch (Exception e) {
-			System.out.println(e.getMessage()+"OrderCall Error");
+			System.out.println(e.getMessage()+" Order Call Error");
 		} finally {
 			try {
 				if(pstmt!=null) pstmt.close();

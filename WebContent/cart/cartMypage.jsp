@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>My Page</title>
-<link href="${conPath }/css/mypage.css " rel="stylesheet" type="text/css">
+<link href="${conPath }/css/mypage1.css " rel="stylesheet" type="text/css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript">
 		$(document).ready(function () {
@@ -29,6 +29,28 @@
 			history.back();
 		</script>
 	</c:if>
+	<c:if test="${not empty DeleteCartOneResult }">
+		<script type="text/javascript">
+			alert('장바구니 물품 삭제 성공');
+		</script>
+	</c:if>
+	<c:if test="${not empty DeleteCartOneError }">
+		<script type="text/javascript">
+			alert('장바구니 물품 삭제 실패');
+			history.back();
+		</script>
+	</c:if>
+	<c:if test="${not empty DeleteCartWholeResult }">
+		<script type="text/javascript">
+			alert('장바구니 전체 삭제 성공');
+		</script>
+	</c:if>
+	<c:if test="${not empty DeleteCartWholeError }">
+		<script type="text/javascript">
+			alert('장바구니 전체 삭제 실패');
+			history.back();
+		</script>
+	</c:if>
 	<jsp:include page="../main/header.jsp"/>
 	<div id="content_form">
 	<br>
@@ -36,7 +58,7 @@
 		<div id="side_banner">
 			<table>
 				<tr>
-					<td><a>상세 정보</a></td>
+					<td><a href="${conPath }/mypage.do?cid=${customer.cid }">상세 정보</a></td>
 				</tr>
 				<tr>
 					<td>
@@ -44,7 +66,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td><a>구매내역</a></td>
+					<td><a href="${conPath }/MyOrder.do?cid=${customer.cid }">구매내역</a></td>
 				</tr>
 			</table>
 		</div>
@@ -72,10 +94,13 @@
 						<td>
 							<img alt="productImg" src="${conPath }/productFileUp/${dto.pphoto}" width="120">
 					 	</td>
+					 	<td>
+							<input type="button" value="삭제" onclick="location='${conPath }/DeleteItemCart.do?cartid=${dto.cartid }&cid=${customer.cid }'">
+					 	</td>
 		   			</tr>		
 			</c:forEach>
 			<tr>
-				<td colspan="4">
+				<td colspan="5">
 					<c:set var = "total" value = "0" />
 						<c:forEach var="dto" items="${list }">	
 							<c:set var= "total" value="${total + dto.pprice}"/>	
@@ -84,9 +109,9 @@
 				</td>
 			</tr>
 			<tr>
-				<td colspan="4">
-					<button onclick="location='${conPath }/OrderView.do'">주문하기</button>
-					<button onclick="location='${conPath }/DeleteCart.do'">회원 탈퇴</button> 
+				<td colspan="5">
+					<button onclick="location='${conPath }/OrderDetailView.do?cid=${customer.cid }'">주문하기</button>
+					<button onclick="location='${conPath }/DeleteWholeCart.do?cid=${customer.cid }'">전체 삭제</button> 
 				</td>
 			</tr>
 			

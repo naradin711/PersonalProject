@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
  
-<link href="${conPath }/css/joinpp.css " rel="stylesheet" type="text/css">
+<link href="${conPath }/css/loginpp.css " rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
@@ -110,7 +110,7 @@
   </script>
 	<jsp:include page="../main/header.jsp"/>
 	 
-		<form id="joinForm_wrap" action="${conPath }/join.do" method="post">
+		<form id="loginForm_wrap" action="${conPath }/join.do" method="post">
 			<table>
 			<tr>
 				<th>아이디</th>
@@ -166,9 +166,9 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="submit" value="회원가입" class="btn">
-					<input type="button" value="로그인" class="btn" onclick="location='${conPath}/loginView.do'">
-					<input type="reset" value="가입취소" class="btn">
+					<input type="submit" value="회원가입"  class="loginBtn_style">
+					<input type="button" value="로그인"  class="loginBtn_style" onclick="location='${conPath}/loginView.do'">
+					<input type="reset" value="가입취소"  class="loginBtn_style">
 				</td>
 			</tr>
 		</table>

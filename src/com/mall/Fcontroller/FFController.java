@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mall.service.AccViewService;
 import com.mall.service.AddCartService;
+import com.mall.service.AddOrderListService;
 import com.mall.service.AddProductService;
+import com.mall.service.AdminOrderDetailService;
 import com.mall.service.AdminProductViewService;
 import com.mall.service.BestSellerViewService;
 import com.mall.service.BoardListService;
@@ -26,6 +28,8 @@ import com.mall.service.CustomerProductService;
 import com.mall.service.CustomerViewService;
 import com.mall.service.DeleteCustomerService;
 import com.mall.service.DeleteCustomerService2;
+import com.mall.service.DeleteItemCartService;
+import com.mall.service.DeleteWholeCartService;
 import com.mall.service.DressViewService;
 import com.mall.service.FreeBoardDeleteService;
 import com.mall.service.FreeBoardModifyService;
@@ -35,6 +39,10 @@ import com.mall.service.FreeBoardWriteService;
 import com.mall.service.IdConfirmService;
 import com.mall.service.ModifyReviewService;
 import com.mall.service.MyCartService;
+import com.mall.service.MyOrderService;
+import com.mall.service.OrderDetailService;
+import com.mall.service.OrderListService;
+import com.mall.service.OrderSuccessService;
 import com.mall.service.ProductDeleteService;
 import com.mall.service.ProductListService;
 import com.mall.service.ProductModifyService;
@@ -183,7 +191,7 @@ public class FFController extends HttpServlet {
 		} else if(command.equals("/main1.do")) {// 회원 가입 화면 출력
 			service = new CLogoutService();//  
 			service.execute(request, response);
-			viewPage = "main/main.jsp";
+			viewPage = "main.do";
 		} else if (command.equals("/DeleteCustomer.do")) { // ID 중복 체크하기
 			service = new DeleteCustomerService();//  
 			service.execute(request, response); // aid parameter로 idConfirm한 결과를 request로 객체 set
@@ -359,10 +367,52 @@ public class FFController extends HttpServlet {
 			service = new MyCartService();
 			service.execute(request, response);
 			viewPage = "cart/cartMypage.jsp";
+		} else if (command.equals("/DeleteItemCart.do")) {	  
+			service = new DeleteItemCartService();
+			service.execute(request, response);
+			viewPage = "MyCart.do";
+		} else if (command.equals("/DeleteWholeCart.do")) {	  
+			service = new DeleteWholeCartService();
+			service.execute(request, response);
+			viewPage = "MyCart.do";
 		}
 		
+		
+		 //
+		 // INDEX ORDER
+		 //
+		  else if (command.equals("/OrderDetailView.do")) {	  // 주문 상세보기 
+			service = new MyCartService();
+			service.execute(request, response);
+			viewPage = "orderList/orderDetailView.jsp";
+		} else if (command.equals("/AddOrderList.do")) {	  // 주문 목록 추가하기 
+			service = new AddOrderListService();
+			service.execute(request, response);
+			viewPage = "OrderDetail.do";
+		} else if (command.equals("/OrderDetail.do")) {	  // 주문 내역 추가하기
+			service = new OrderDetailService();
+			service.execute(request, response);
+			viewPage = "DeleteWholeCart.do";
+		} else if (command.equals("/MyOrder.do")) {	  
+			service = new MyOrderService();
+			service.execute(request, response);
+			viewPage = "orderList/orderMypage.jsp";
+		} else if (command.equals("/OrderList.do")) {	  
+			service = new OrderListService();
+			service.execute(request, response);
+			viewPage = "orderList/AdminOrderList.jsp";
+		} else if (command.equals("/AdminOrderDetail.do")) {	  
+			service = new AdminOrderDetailService();
+			service.execute(request, response);
+			viewPage = "orderList/AdminOrderDetail.jsp";
+		} else if (command.equals("/OrderSuccess.do")) {	  
+			service = new OrderSuccessService();
+			service.execute(request, response);
+			viewPage = "orderList/AdminOrderList.jsp";
+		} 
+		
+	
 		;
-		 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 		

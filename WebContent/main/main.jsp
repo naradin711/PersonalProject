@@ -65,8 +65,42 @@
 	
 	<jsp:include page="../main/header.jsp"/>
 	<div id="content_form">
+	<img alt="main_image" src="${conPath }/main/mainImage.png">
 	<br>
-	<h1>Main</h1>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<table>
+		<c:if test="${list.size() eq 0 }">
+			<tr><th>등록된 상품이 없습니다</th></tr>
+		</c:if>
+		<c:if test="${list.size() != 0 }">
+			<tr>
+			<c:set var="i" value="0"/>
+			<c:forEach var="dto" items="${list }" >
+				<td colspan="2">
+					<a href="${conPath }/CustomerProductView.do?pid=${dto.pid}&pageNum=${pageNum}">
+					<img alt="productImg" src="${conPath}/productFileUp/${dto.pphoto }" width="300" width="450">
+					</a>
+					<br><br> 
+					<a href="${conPath }/CustomerProductView.do?pid=${dto.pid}&pageNum=${pageNum}">
+					${dto.pname }
+					</a>
+					&nbsp;&nbsp;
+					<a href="${conPath }/CustomerProductView.do?pid=${dto.pid}&pageNum=${pageNum}">
+					 ${dto.pprice }원
+					</a>
+				</td>
+				<c:if test="${i%3==2 }">
+					</tr> <tr>
+				</c:if>
+				<c:set var="i" value="${i+1 }"/>	
+			</c:forEach>
+			 
+		</c:if>
+	</table>
 	</div>
 	<jsp:include page="../main/footer.jsp"/>
 </body>
