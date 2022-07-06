@@ -1,9 +1,9 @@
 package com.mall.dto;
-
-import java.sql.Date;
+ 
 
 public class OrderDetailDto {
-	private int oddid;     
+	private int oddid; 
+	private int odid;
 	private String cid; 
 	private int pid;
 	private String pname; 
@@ -13,6 +13,28 @@ public class OrderDetailDto {
     
 	public OrderDetailDto() { 
 	}
+	
+	
+
+	public OrderDetailDto(int oddid, int odid, String cid, int pid, String pname, int pprice) {
+		 
+		this.oddid = oddid;
+		this.odid = odid;
+		this.cid = cid;
+		this.pid = pid;
+		this.pname = pname;
+		this.pprice = pprice;
+	}
+	public OrderDetailDto(int oddid, int odid, int pid, String pname, int pprice) {
+		 
+		this.oddid = oddid;
+		this.odid = odid; 
+		this.pid = pid;
+		this.pname = pname;
+		this.pprice = pprice;
+	}
+
+
 
 	public OrderDetailDto(String cid, int pid, String pname, int pprice) {
 		  
@@ -71,13 +93,30 @@ public class OrderDetailDto {
 	public void setPprice(int pprice) {
 		this.pprice = pprice;
 	}
+	
+	
+
+	public int getOdid() {
+		return odid;
+	}
+
+
+
+	public void setOdid(int odid) {
+		this.odid = odid;
+	}
+
+
 
 	@Override
 	public String toString() {
-		return "OrderDetailDto [oddid=" + oddid + ", cid=" + cid + ", pid=" + pid + ", pname=" + pname + ", pprice="
-				+ pprice + "]";
+		return "OrderDetailDto [oddid=" + oddid + ", odid=" + odid + ", cid=" + cid + ", pid=" + pid + ", pname="
+				+ pname + ", pprice=" + pprice + "]";
 	}
 
+
+
+	 
 	 
 	
 	

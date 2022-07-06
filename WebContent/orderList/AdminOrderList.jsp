@@ -20,7 +20,9 @@
 <body>
 	<c:if test="${not empty OrderSuccessResult }">
 		<script type="text/javascript">
+		    location.href ="${conPath}/orderList/AdminOrderList.jsp"
 			alert('주문 처리에 성공하셨습니다.');
+			
 		</script>
 	</c:if>
 	<c:if test="${not empty OrderSuccessError }">
@@ -52,7 +54,7 @@
 					${dto.cid } 
 				</td>
 				<td>
-					<a href="${conPath }/AdminOrderDetail.do?cid=${dto.cid }&odid=${dto.odid } ">
+					<a href="${conPath }/AdminOrderDetail.do?cid=${dto.cid }&odid=${dto.odid }&odaddress=${dto.odaddress } ">
 						${dto.odtitle }
 					</a> 
 				</td> 

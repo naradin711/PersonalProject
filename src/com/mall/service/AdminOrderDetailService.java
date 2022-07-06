@@ -11,14 +11,14 @@ public class AdminOrderDetailService implements Service {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String pageNum = request.getParameter("pageNum");
 		String cid = request.getParameter("cid");
-		String odid = request.getParameter("odid");
+		int odid= Integer.parseInt(request.getParameter("odid"));
 		if(pageNum == null) pageNum="1";
 		int currentPage = Integer.parseInt(pageNum);
 		final int PAGESIZE = 10, BLOCKSIZE = 5;
 		int startRow = ((currentPage-1)*PAGESIZE)+1;
 		int endRow = startRow + PAGESIZE-1 ;
 		OrderDetailDao oddDao = OrderDetailDao.getInstance();
-		request.setAttribute("list", oddDao.listOrderDetail(cid, startRow, endRow) );//글목록
+		request.setAttribute("list", oddDao.listOrderDetail(odid, startRow, endRow) );//글목록
 		int totalCnt = oddDao.getOrderListCnt();
 		int pageCnt = (int)Math.ceil((double)totalCnt/PAGESIZE);// 페이지 수
 		int startPage = ((currentPage-1)/BLOCKSIZE)*BLOCKSIZE + 1;

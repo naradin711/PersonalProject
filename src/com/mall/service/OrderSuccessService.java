@@ -11,7 +11,7 @@ public class OrderSuccessService implements Service {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession(); 
-		
+		String cid = request.getParameter("cid");
 		int odid = Integer.parseInt(request.getParameter("odid")) ;
 		System.out.println("주문 처리 과정 " + 11);
 		OrderListDao odDao = OrderListDao.getInstance(); 

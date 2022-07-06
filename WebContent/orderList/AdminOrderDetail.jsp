@@ -22,6 +22,7 @@
 	<div id="content_form">  
 			<input type="hidden" name="cid" value="${param.cid }">
 			<input type="hidden" name="odid" value="${param.odid }">
+			<input type="hidden" name="odaddress" value="${param.odaddress }">
 			<table>
 				<caption>상세 구매 목록 </caption>
 				<c:if test="${list.size() eq 0 }">
@@ -53,7 +54,12 @@
 			</tr>
 			<tr>
 				<td colspan="3">
-					<input type="button" value="주문처리" onclick="location='${conPath }/OrderSuccess.do?odid=${param.odid }'">
+				배 송 지 : ${param.odaddress }
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<input type="button" value="주문처리" onclick="location='${conPath }/OrderSuccess.do?odid=${param.odid }&cid=${customer.cid }'">
 					<input type="button" value="뒤로가기" onclick= history.back(); >
 				</td>
 			</tr>

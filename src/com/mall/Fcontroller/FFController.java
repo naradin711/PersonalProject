@@ -38,7 +38,7 @@ import com.mall.service.FreeBoardViewService;
 import com.mall.service.FreeBoardWriteService;
 import com.mall.service.IdConfirmService;
 import com.mall.service.ModifyReviewService;
-import com.mall.service.MyCartService;
+import com.mall.service.MyCartService; 
 import com.mall.service.MyOrderService;
 import com.mall.service.OrderDetailService;
 import com.mall.service.OrderListService;
@@ -167,9 +167,10 @@ public class FFController extends HttpServlet {
 			if(doAction) {
 				service = new CLoginService();//  
 				service.execute(request, response);
+				viewPage = "main.do";
 				doAction = false;
 			}
-			viewPage = "main/main.jsp";
+			
 		} else if(command.equals("/logout.do")) {// 로그아웃 db 처리
 			service = new CLogoutService();//  
 			service.execute(request, response);

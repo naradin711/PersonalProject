@@ -396,6 +396,7 @@ ROLLBACK;
                         -- ORDER TABLE
 --------------------------------------------------------------------
 
+commit;
 DROP TABLE ORDERLIST;
 DROP SEQUENCE ORDERLIST_SEQ;
 CREATE SEQUENCE ORDERLIST_SEQ MAXVALUE 999999 NOCYCLE NOCACHE;
@@ -410,11 +411,12 @@ CREATE TABLE ORDERLIST (
                  );
 
 -- 0. 글 갯수 세기
+
 SELECT COUNT(*)CNT FROM ORDERLIST;
 
 SELECT * FROM ORDERLIST;
 
-delete orderlist where odid = 6;
+delete orderlist;
 
 -- 1. 구매 목록 출력 시간순 (int startRow, int endRow)
                 
@@ -463,7 +465,8 @@ select OD.* from ORDERLIST OD, CUSTOMER_SHOP C
 COMMIT; 
 UPDATE ORDERLIST SET ODtitle = CONCAT( ODtitle, ' - 처리 완료.') ,
                      ODCALL = 'Y'
-                 WHERE ODID = 2 ;              
+                 WHERE ODID = 12 ;   
+                 commit;
                  
 -- 6. ODID로 ORDERLIST dto보기 (개인 구매 목록 출력)
 select OD.* from ORDERLIST OD, CUSTOMER_SHOP C
@@ -475,15 +478,18 @@ ROLLBACK;
 -- 7. 제목 바꾸기
 UPDATE ORDERLIST SET ODtitle = 'ddd 님의 주문 - 처리 완료.'
                  WHERE ODID = 8 ;  
+                 
 --------------------------------------------------------------------
                         -- ORDERDETAIL TABLE
 --------------------------------------------------------------------
+commit;
 
 DROP TABLE ORDERDETAIL;
 DROP SEQUENCE ORDERDETAIL_SEQ;
 CREATE SEQUENCE ORDERDETAIL_SEQ MAXVALUE 999999 NOCYCLE NOCACHE;
 CREATE TABLE ORDERDETAIL (
                 ODDID       NUMBER(10)      PRIMARY KEY,
+                ODID        NUMBER(10)      REFERENCES ORDERLIST(ODID),
                 CID         VARCHAR2(30)    REFERENCES CUSTOMER_SHOP(CID),
                 PID         NUMBER(10)      REFERENCES PRODUCT(PID),
                 pname       VARCHAR2(300)   NOT NULL,
@@ -492,27 +498,39 @@ CREATE TABLE ORDERDETAIL (
 
 -- 0. 글 갯수 세기
 SELECT COUNT(*)CNT FROM ORDERDETAIL;
-
+SELECT  *  FROM ORDERDETAIL  order by oddid  desc;
+SELECT  *  FROM ORDERDETAIL  where odid = 29 order by oddid  desc;
+delete ORDERDETAIL;
+-- 1.  구매목록 출력 - 주문번호별
+SELECT * FROM
+    (SELECT ROWNUM RN, A.* FROM
+    (select ODD.* from ORDERDETAIL ODD, CUSTOMER_SHOP C, ORDERLIST L
+                 WHERE ODD.CID = C.CID and ODD.ODID = L.ODID AND ODD.ODID = 29
+                 ORDER BY ODDID DESC)A )
+     WHERE RN BETWEEN 1 AND 10; 
+     
 -- 1.  구매목록 출력 - 아이디별
 SELECT * FROM
     (SELECT ROWNUM RN, A.* FROM
     (select ODD.* from ORDERDETAIL ODD, CUSTOMER_SHOP C
-                 WHERE ODD.CID = C.CID AND ODD.cid = 'aaa'
+                 WHERE ODD.CID = C.CID AND ODD.cid = 'ggg'
                  ORDER BY ODDID DESC)A )
-     WHERE RN BETWEEN 1 AND 10; 
+     WHERE RN BETWEEN 1 AND 10;     
      
      commit;
 
 -- 2. 구매 상세 추가
+  
+INSERT INTO ORDERLIST (ODID, cID, ODTITle, ODaddress, odprice) VALUES (ORDERLIST_SEQ.NEXTVAL, 'fff' , 'fff님 구매', 'seoul' , 10000);
 
-INSERT INTO ORDERDETAIL (ODDID, cid, pid, pname, pprice)
-select ORDERDETAIL_SEQ.nextval ,c.cid, c.pid, c.pname, c.pprice from CART c where c.cid = 'bbb';
+INSERT INTO ORDERDETAIL (ODDID, odid, cid, pid, pname, pprice)
+select ORDERDETAIL_SEQ.nextval, ORDERLIST_SEQ.currval , cid, pid, pname, pprice 
+from CART c where cid='fff' ; 
 
+-- 3. 구매 완료 후 삭제
 
-
-
-
-
+delete orderdetail where cid = 'ggg'; 
+ 
 
 
 

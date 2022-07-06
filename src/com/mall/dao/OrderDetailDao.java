@@ -33,7 +33,49 @@ public class OrderDetailDao {
 	}
 //	-- 1. 글 출력 (int startRow, int endRow)
  
-	public ArrayList<OrderDetailDto> listOrderDetail (String cid, int startRow, int endRow){
+	public ArrayList<OrderDetailDto> listOrderDetail (int odid, int startRow, int endRow){
+		ArrayList<OrderDetailDto> OrderLists = new ArrayList<OrderDetailDto>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet			rs  = null;
+		String sql = "SELECT * FROM " + 
+				"    (SELECT ROWNUM RN, A.* FROM " + 
+				"    (select ODD.* from ORDERDETAIL ODD, CUSTOMER_SHOP C " + 
+				"                 WHERE ODD.CID = C.CID AND ODD.odid = ? " + 
+				"                 ORDER BY ODDID DESC)A ) " + 
+				"     WHERE RN BETWEEN ? AND ?  ";
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, odid);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				int oddid 		= rs.getInt("oddid");
+				int pid 		= rs.getInt("pid");
+				String pname    = rs.getString("pname");
+				int pprice 		= rs.getInt("pprice");
+				
+			    OrderLists.add(new OrderDetailDto(oddid, odid, pid, pname, pprice) );   
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage()+ " 구매 번호별 구매 내역 보기 DAO 에러 11 ");
+		} finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(conn!=null) conn.close();
+			} catch (Exception e) {
+				System.out.println(e.getMessage() + "구매 내역 보기 DAO 에러 22 ");
+			} 
+		}
+		
+		return OrderLists;
+	}
+	// -- 1. 1. 마이페이지 글 출력 (int startRow, int endRow)
+	 
+	public ArrayList<OrderDetailDto> listMyOrder (String cid, int startRow, int endRow){
 		ArrayList<OrderDetailDto> OrderLists = new ArrayList<OrderDetailDto>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -60,7 +102,7 @@ public class OrderDetailDao {
 			    OrderLists.add(new OrderDetailDto(oddid, cid, pid, pname, pprice) );   
 			}
 		} catch (Exception e) {
-			System.out.println(e.getMessage()+ "구매 내역 보기 DAO 에러 11 ");
+			System.out.println(e.getMessage()+ "내 구매 내역 보기 DAO 에러 11 ");
 		} finally {
 			try {
 				if(rs!=null) rs.close();
@@ -106,16 +148,16 @@ public class OrderDetailDao {
 		int result = FAIL;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		String sql = " INSERT INTO ORDERDETAIL (ODDID, cid, pid, pname, pprice) " + 
-				"select ORDERDETAIL_SEQ.nextval, c.cid, c.pid, c.pname, c.pprice " +
-				 " from CART c where c.cid = ? " ; 
+		String sql = " INSERT INTO ORDERDETAIL (ODDID, odid, cid, pid, pname, pprice) " + 
+				"select ORDERDETAIL_SEQ.nextval, ORDERLIST_SEQ.currval , cid, pid, pname, pprice  " + 
+				"from CART where cid= ?  " ; 
 				 
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, cid);
+			pstmt.setString(1, cid); 
 			result = pstmt.executeUpdate();
-			System.out.println(result==FAIL? "주문 상세 작성 실패":"주문 상세 작성 성공");
+			System.out.println(result==FAIL? " 주문 상세 작성 실패 ":" 주문 상세 작성 성공 ");
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage() + "insert ORDERDETAIL error DAO");
@@ -128,7 +170,34 @@ public class OrderDetailDao {
 			} 
 		}
 		return result;
-		
+	}
+	
+	
+// -- 4. 완료된 주문 목록에서 삭제하기 	
+		public int DeleteOrderDetail(String cid) {
+			int result = FAIL;
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			String sql = " delete orderdetail where cid = ? " ; 
+					 
+			try {
+				conn = ds.getConnection();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, cid);
+				result = pstmt.executeUpdate();
+				System.out.println(result==FAIL? "주문 상세 삭제 실패":"주문 상세 삭제 성공");
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage() + "insert ORDERDETAIL error DAO");
+			}	finally {
+				try {
+					if(pstmt!=null) pstmt.close();
+					if(conn!=null) conn.close();
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				} 
+			}
+			return result;
 		
 	} 
 	

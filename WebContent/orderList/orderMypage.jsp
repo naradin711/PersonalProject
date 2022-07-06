@@ -42,7 +42,7 @@
 			<table>
 				<caption>내 구매 목록 </caption>
 				<c:if test="${list.size() eq 0 }">
-					<tr><th>구매하신 상품이 없습니다.</th></tr>
+					<tr><th colspan="3"> 주문 대기 중인 상품이 없습니다.</th></tr>
 				</c:if>
 			<c:if test="${list.size() != 0 }">
 		 	<tr> <th>장바구니 번호</th> <th>물품명</th> <th>가격</th></tr>
@@ -68,8 +68,32 @@
 					구매 합계 :  <c:out value="${total}"/>원
 				</td>
 			</tr> 
-		</c:if>
-		
+			<tr>
+				<td colspan="3">
+				<div class="paging">
+				<a href="${conPath }/MyOrder.do?pageNum=1">◀◀</a>
+					&nbsp; &nbsp; &nbsp;
+				<c:if test="${startPage > BLOCKSIZE }" >
+					<a href="${conPath }/MyOrder.do?pageNum=${startPage-1 }">◀</a>
+				</c:if>
+				<c:forEach var="i" begin="${startPage }" end="${endPage }">
+					<c:if test="${i eq pageNum }">
+						[<b> ${i } </b>]
+					</c:if>
+					<c:if test="${i != pageNum }">
+						[<a href="${conPath }/MyOrder.do?pageNum=${i}"> ${i } </a>]
+					</c:if>
+				</c:forEach>
+				<c:if test="${endPage < pageCnt }">
+					<a href="${conPath }/MyOrder.do?pageNum=${endPage + 1}"> ▶ </a>
+				</c:if>
+				&nbsp; &nbsp; &nbsp;
+				<a href="${conPath }/MyOrder.do?pageNum=${pageCnt}">▶▶</a>
+				<br> 
+			</div> 
+				</td>
+			</tr>
+		</c:if> 
 		
 	</table>
 		</div>

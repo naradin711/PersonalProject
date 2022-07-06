@@ -17,7 +17,7 @@ public class MyOrderService implements Service {
 		int startRow = ((currentPage-1)*PAGESIZE)+1;
 		int endRow = startRow + PAGESIZE-1 ;
 		OrderDetailDao oddDao = OrderDetailDao.getInstance();
-		request.setAttribute("list", oddDao.listOrderDetail(cid, startRow, endRow) );//글목록
+		request.setAttribute("list", oddDao.listMyOrder(cid, startRow, endRow) );//글목록
 		int totalCnt = oddDao.getOrderListCnt();
 		int pageCnt = (int)Math.ceil((double)totalCnt/PAGESIZE);// 페이지 수
 		int startPage = ((currentPage-1)/BLOCKSIZE)*BLOCKSIZE + 1;
