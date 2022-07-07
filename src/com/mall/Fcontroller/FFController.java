@@ -390,7 +390,7 @@ public class FFController extends HttpServlet {
 			service = new AddOrderListService();
 			service.execute(request, response);
 			viewPage = "OrderDetail.do";
-		} else if (command.equals("/OrderDetail.do")) {	  // 주문 내역 추가하기
+		} else if (command.equals("/OrderDetail.do")) {	  // 상세 주문 내역 추가하기
 			service = new OrderDetailService();
 			service.execute(request, response);
 			viewPage = "DeleteWholeCart.do";
@@ -407,9 +407,9 @@ public class FFController extends HttpServlet {
 			service.execute(request, response);
 			viewPage = "orderList/AdminOrderDetail.jsp";
 		} else if (command.equals("/OrderSuccess.do")) {	  
-			service = new OrderSuccessService();
-			service.execute(request, response);
-			viewPage = "orderList/AdminOrderList.jsp";
+			service = new OrderSuccessService(); 
+			service.execute(request, response);  
+			viewPage = "OrderList.do";
 		} 
 		
 	

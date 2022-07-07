@@ -42,8 +42,7 @@ p {
 	width:530px; margin: 10px auto; height: 1000px; 
 	text-align: center;
 	color: #003300; 
-	float: left;
-	border: 1px solid red; margin-left : 20px;
+	float: left;  margin-left : 20px;
 }
 
 #product_info {
@@ -53,8 +52,7 @@ p {
 	height: 1000px; 
 	text-align: center;
 	color: #003300;
-	float: left; 
-	border: 1px solid red; 
+	float: left;  
 }
 #review {
 	width:872px; 
@@ -63,6 +61,8 @@ p {
 	height: 300px; 
 	text-align: center;
 	color: #003300;
-	float: left; 
-	border: 1px solid red; 
+	float: left;  
+}
+#newTab, .putCart:hover {
+	cursor: pointer;
 }

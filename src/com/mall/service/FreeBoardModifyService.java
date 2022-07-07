@@ -42,7 +42,7 @@ public class FreeBoardModifyService implements Service {
 			FreeBoardDto pp =(FreeBoardDto)session.getAttribute("freeboard");
 			String sessionPhoto = null;
 			if (pp!=null) {
-				sessionPhoto = pp.getFbphoto() ; // 세션의 pw를 sessionPw에 할당
+				sessionPhoto = pp.getFbphoto() ; // 세션의 사진 파일 명을 sessionPhoto에 할당
 			}
 			fbphoto = fbphoto==null? sessionPhoto : fbphoto;
 			String fbip = request.getRemoteAddr() ;

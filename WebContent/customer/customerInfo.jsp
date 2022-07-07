@@ -36,8 +36,8 @@
 		 
 		<tr>
 			<td colspan="2">
-			<button onclick="location='${conPath }/CustomerModifyView.do'">정보 수정</button>
-			<button onclick="location='${conPath }/DeleteCustomer.do'">회원 탈퇴</button>
+			<button onclick="location='${conPath }/CustomerModifyView.do'" class="myPageBtn_style">정보 수정</button>
+			<button onclick="location='${conPath }/DeleteCustomer.do'" class="myPageBtn_style">회원 탈퇴</button>
 			 
 			</td>
 		</tr>

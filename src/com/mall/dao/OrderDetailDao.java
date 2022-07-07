@@ -148,9 +148,11 @@ public class OrderDetailDao {
 		int result = FAIL;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		String sql = " INSERT INTO ORDERDETAIL (ODDID, odid, cid, pid, pname, pprice) " + 
-				"select ORDERDETAIL_SEQ.nextval, ORDERLIST_SEQ.currval , cid, pid, pname, pprice  " + 
-				"from CART where cid= ?  " ; 
+		String sql = " INSERT INTO ORDERDETAIL " +
+				" (ODDID, odid, cid, pid, pname, pprice) " + 
+				" select ORDERDETAIL_SEQ.nextval, " +
+				" ORDERLIST_SEQ.currval , cid, pid, pname, pprice  " + 
+				"from CART where cid = ?  " ; 
 				 
 		try {
 			conn = ds.getConnection();

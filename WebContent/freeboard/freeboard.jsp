@@ -5,11 +5,18 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
  <c:set var="conPath" value="${pageContext.request.contextPath }"  />    
 <!DOCTYPE html>
+<c:if test="${ empty customer && empty admin }">
+		<script type="text/javascript">
+			
+			location.href='${conPath}/loginView.do'
+			alert('로그인 후 이용해 주세요!');	
+		</script>  
+	</c:if>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>고객게시판</title>
-<link href="${conPath }/css/freeboard.css " rel="stylesheet" type="text/css">
+<link href="${conPath }/css/freeboard.css" rel="stylesheet" type="text/css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript">
 		$(document).ready(function () {
@@ -63,12 +70,13 @@
 		</script>
 	</c:if> 
 	<jsp:include page="../main/header.jsp"/>
+	<br><br>
 	<div id="content_form">
 		<table>
-			<caption>고 객 센 터 게 시 판</caption>
+			<caption>고 객 센 터 게 시 판</caption> 
 			<tr>
-			<th> 글 번호 </th> <th> ID </th> <th> 글 제목 </th> <th>사진 </th> <th> 등록일자 </th>
-		</tr>
+				<th> 글 번호 </th> <th> ID </th> <th> 글 제목 </th> <th>사진 </th> <th> 등록일자 </th>
+			</tr>
 		<c:if test="${list.size() eq 0 }">
 			<tr><th>등록된 회원이 없습니다</th></tr>
 		</c:if>
@@ -135,6 +143,8 @@
 				<br> 
 			</div> 
 	</div>
+	<br><br><br>
 	<jsp:include page="../main/footer.jsp"/>
+	<br><br>
 </body>
 </html>

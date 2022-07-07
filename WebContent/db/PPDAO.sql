@@ -102,7 +102,7 @@ CREATE TABLE PRODUCT (
         prdate DATE DEFAULT SYSDATE
         );
         
-SELECT * FROM product;
+SELECT * FROM product order by prdate desc;
 COMMIT;
 
 -- 0. 상품 출력
@@ -142,7 +142,7 @@ INSERT INTO PRODUCT (PID, PNAME, PTYPE, pcontent, pphoto, pprice )
 SELECT * FROM PRODUCT WHERE PID = 3;
 
 -- 2-1. 상품 조회수 올리기
-UPDATE PRODUCT SET PHIT = PHIT + 39 WHERE PID = 39;
+UPDATE PRODUCT SET PHIT = PHIT + 1 WHERE PID = 38;
 commit;
 
 -- 3-1 . 상품 목록 출력 이름 검색

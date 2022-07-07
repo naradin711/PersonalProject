@@ -117,8 +117,9 @@ public class OrderListDao {
 		int result = FAIL;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		String sql = " INSERT INTO ORDERLIST (ODID, cID, ODTITle, ODaddress, odprice) " + 
-				"VALUES (ORDERLIST_SEQ.NEXTVAL, ? , ? , ? , ?) "; 
+		String sql = " INSERT INTO ORDERLIST "
+				+ "    (ODID, cID, ODTITle, ODaddress, odprice) " + 
+				" VALUES (ORDERLIST_SEQ.NEXTVAL, ? , ? , ? , ?) "; 
 				 
 		try {
 			conn = ds.getConnection();

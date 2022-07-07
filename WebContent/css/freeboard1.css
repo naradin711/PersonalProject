@@ -1,22 +1,26 @@
 @CHARSET "UTF-8";
 
-#content_form table {border: 2px solid #003300; margin: 10px auto; text-align: center; width:700px;}
-#content_form table td { background-color: white; }
-#content_form table td:hover { background-color: #4D4DFF;
+#content_form table {border: 2px solid #003300; margin: 10px auto; text-align: center; width:700px; height: 450px;}
+#content_form table tr { background-color:  #c1ccff; }
+#content_form table tr:hover { background-color: #4D4DFF;
 	cursor: pointer;
 }
-#content_form td, #content_form th {text-align: center; padding:5px; }
+#content_form td, #content_form th {text-align: center; padding:10px; }
 #content_form caption {font-size: 18px; padding:10px; margin-bottom: 35px;}
 #content_form h2, #content_form b{text-align: center; color:red;}
 #content_form a { text-decoration: none; color:black}
 #content_form .left{text-align: left;}
 #content_form .center{text-align: center;}
 #content_form .paging {text-align: center;}
-#content_form input:not(.btn), #content_form textarea {
-	width: 200px;
+#content_form input:not(.btn)  {
+	 width: 200px;
+}
+#content_form textarea{
+	width: 80%;
+	height: 70%;
 }
 #content_form{
-	width:1200px; margin: 0px auto; height: 500px; 
+	width:1200px; margin: 0px auto; height: 1000px; 
 	text-align: center;
 	color: #003300;
 	padding-top:50px;

@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>고 객 센 터 글 쓰 기</title>
+<title>고 객 센 터 수 정 하 기</title>
 <link href="${conPath }/css/freeboard1.css " rel="stylesheet" type="text/css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript">

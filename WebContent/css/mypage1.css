@@ -1,5 +1,6 @@
 @CHARSET "UTF-8";
-table {border: 2px solid pink; width:600px; margin: 10px auto;}
+table {  width:600px; margin: 10px auto;}
+table tr th td { border : none; }
 table tr { background-color: #FFCDCD; height: 40px;}
 table tr:hover { background-color: #FF9F9F;
 	cursor: pointer;
@@ -16,8 +17,10 @@ input:not(.btn), textarea {
 p {
 	text-align: center;
 }
-#content_form table {border: 2px solid white; width:95%; margin: 10px auto;}
+#content_form table {width:95%; margin: 10px auto;}
 #content_form table tr { background-color: #FFCDCD; height:40px; }
+
+#content_form table tr th td { border : none; }
 #content_form table tr:hover { background-color: #FF9F9F;
 	cursor: pointer;
 }
@@ -54,4 +57,13 @@ p {
 	color: #003300;
 	float: left; 
 	 
+}
+.myPageBtn_style{
+	color:#ffffff;
+	background-color: #FF9F9F;
+	border-style: none; outline:none;
+	width: 70px; height: 120%; padding:3px; margin:5px;
+}
+.myPageBtn_style:hover{ 
+	cursor: pointer;
 }

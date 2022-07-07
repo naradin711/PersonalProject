@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>상품 정보 수정</title>
-<link href="${conPath }/css/stylep3.css" rel="stylesheet" type="text/css">
+<link href="${conPath }/css/freeboard.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>

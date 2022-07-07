@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>고객 센터 글 상세보기</title>
-<link href="${conPath }/css/productview.css " rel="stylesheet" type="text/css">
+<link href="${conPath }/css/freeboard.css " rel="stylesheet" type="text/css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript">
 		$(document).ready(function () {
@@ -23,7 +23,7 @@
 	 	<div id="product_image">
 			<img alt="${FreeBoardView.fbphoto }" 
 				 src="${conPath }/freeboardFileUp/${FreeBoardView.fbphoto}" 
-				 width="520"> 
+				 width="400"> 
 		</div>
 		<div id="product_info">
 			<table>

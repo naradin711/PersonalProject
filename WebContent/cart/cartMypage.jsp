@@ -78,7 +78,7 @@
 					<tr><th>등록된 상품이 없습니다.</th></tr>
 				</c:if>
 			<c:if test="${list.size() != 0 }">
-		 	<tr> <th>장바구니 번호</th> <th>물품명</th> <th>가격</th> <th>사진</th></tr>
+		 	<tr> <th>장바구니 번호</th> <th>물품명</th> <th>가격</th> <th colspan="2">사진</th></tr>
 				<c:forEach var="dto" items="${list }">	
 					<tr>	
 						<td> 
@@ -95,7 +95,9 @@
 							<img alt="productImg" src="${conPath }/productFileUp/${dto.pphoto}" width="120">
 					 	</td>
 					 	<td>
-							<input type="button" value="삭제" onclick="location='${conPath }/DeleteItemCart.do?cartid=${dto.cartid }&cid=${customer.cid }'">
+							<input type="button" value="삭제" 
+							onclick="location='${conPath }/DeleteItemCart.do?cartid=${dto.cartid }&cid=${customer.cid }'"
+							class="myPageBtn_style">
 					 	</td>
 		   			</tr>		
 			</c:forEach>
@@ -110,8 +112,10 @@
 			</tr>
 			<tr>
 				<td colspan="5">
-					<button onclick="location='${conPath }/OrderDetailView.do?cid=${customer.cid }'">주문하기</button>
-					<button onclick="location='${conPath }/DeleteWholeCart.do?cid=${customer.cid }'">전체 삭제</button> 
+					<button onclick="location='${conPath }/OrderDetailView.do?cid=${customer.cid }'" 
+					class="myPageBtn_style">주문하기</button>
+					<button onclick="location='${conPath }/DeleteWholeCart.do?cid=${customer.cid }'"
+					class="myPageBtn_style">전체 삭제</button> 
 				</td>
 			</tr>
 			

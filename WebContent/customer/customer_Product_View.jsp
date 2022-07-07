@@ -78,7 +78,7 @@
 				</tr>
 			</table>
 			<form action="${conPath }/addCart.do?cid=${customer.cid }&pid=${CustomerProductView.pid }&pname=${CustomerProductView.pname }&pprice=${CustomerProductView.pprice }&pphoto=${CustomerProductView.pphoto }" method="post" enctype="multipart/form-data">
-			<button><img alt="addCart" src="${conPath }/productFileUp/cart_in.png" width="300"></button>
+			<button><img alt="addCart" src="${conPath }/productFileUp/cart_in.png" width="300" class="putCart"></button>
 			</form>
 			<a id ="newTab" >
 				<img alt="review_write" src="${conPath }/productFileUp/review_in.png" width="300">

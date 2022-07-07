@@ -130,11 +130,11 @@
 				</tr>
 				<tr> 
 					<td colspan="2">
-						<input type="submit" value="수정" class="btn">
-						<input type="reset" value="초기화" class="btn"
+						<input type="submit" value="수정" class="myPageBtn_style">
+						<input type="reset" value="초기화" class="myPageBtn_style"
 						   	onclick="history.back()">
 						<c:if test="${ admin != null }">	   
-						<input type="button" value="목록" class="btn" 
+						<input type="button" value="목록" class="myPageBtn_style" 
 					       	onclick="location='${conPath}/CustomerList.do?pageNum=${param.pageNum}'">
 						</c:if>
 					</td>

@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>고 객 센 터 글 쓰 기</title>
-<link href="${conPath }/css/freeboard.css " rel="stylesheet" type="text/css">
+<link href="${conPath }/css/freeboard1.css " rel="stylesheet" type="text/css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript">
 		$(document).ready(function () {
@@ -44,6 +44,6 @@
 		</form>
 	</div>
 	<jsp:include page="../main/footer.jsp"/>
-	
+	<br>
 </body>
 </html>
