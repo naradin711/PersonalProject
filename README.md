@@ -18,9 +18,15 @@
  
 
 ### 작업분할 구조도
-<br>
+<br><br><br>
 
-![1](https://user-images.githubusercontent.com/35479999/177796900-a5d6c140-b034-4475-be5c-b19280fa8c69.JPG)<br><br>
+![image](https://user-images.githubusercontent.com/101315574/177959171-d56bcb9f-f4c5-4c04-a40a-a95c4c554abb.png)
+
+<br><br>
+
+![image](https://user-images.githubusercontent.com/101315574/177959268-732806bc-3ff0-4c25-8915-38961ef2f3fb.png)
+
+<br><br>
 
 ### Gantt chart
 <br>
