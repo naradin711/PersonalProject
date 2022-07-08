@@ -1,20 +1,20 @@
 # PersonalProject"
-<br>
-패션 쇼핑몰 - YouVely
-=========
-> 개인 프로젝트
+<br><br>
+패션 쇼핑몰 - YouVely<br><br>
+=========<br>
+> 개인 프로젝트<br>
 
-- 프로젝트 명 : 패션 쇼핑몰 - YouVely <br>
+- 프로젝트 명 : 패션 쇼핑몰 - YouVely <br><br><br>
 - 인 원 : 1 명 <br>
-- 기 간 : 2022.06.27 ~ 2022.07.07 <br>
-- DBMS : Oracle 11g Express Edition <br>
-- 언어 : Java SE 8 Platform, HTML5, CSS, CSS3, JavaScript <br>
-- 패턴 : MVC 패턴 <br>
-- 오픈 Library :  jQuery v3.6.0, jQueryUI v1.13.1, cos-22.05 <br>
+- 기 간 : 2022.06.27 ~ 2022.07.07 <br><br>
+- DBMS : Oracle 11g Express Edition <br><br>
+- 언어 : Java SE 8 Platform, HTML5, CSS, CSS3, JavaScript <br><br>
+- 패턴 : MVC 패턴 <br><br>
+- 오픈 Library :  jQuery v3.6.0, jQueryUI v1.13.1, cos-22.05 <br><br>
 - 프로젝트 소개 : 쇼핑몰 홈페이지에서 회원으로 물품 구매, 장바구니 추가, 리뷰 관리, 고객 게시판 게시글 관리 <br>
-	         관리자로 로그인 시 상품 관리, 구매 목록 조회 및 관리, 회원 조회 및 상세 정보 관리 기능 등을 수행할 수 있다 <br>
+	         관리자로 로그인 시 상품 관리, 구매 목록 조회 및 관리, 회원 조회 및 상세 정보 관리 기능 등을 수행할 수 있다 <br><br><br>
 
-![0](https://user-images.githubusercontent.com/101315574/177954682-8a48ee3d-c6d2-49ec-a559-0747bb37d16a.png)
+![0](https://user-images.githubusercontent.com/101315574/177954682-8a48ee3d-c6d2-49ec-a559-0747bb37d16a.png)<br><br><br>
  
 
 ### 작업분할 구조도
