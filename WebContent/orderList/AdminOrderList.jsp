@@ -20,7 +20,7 @@
 <body>
 	<c:if test="${not empty OrderSuccessResult }">
 		<script type="text/javascript">
-		    location.href ="${conPath}/orderList/AdminOrderList.jsp"
+		    location.href ="${conPath}/OrderList.do"
 			alert('주문 처리에 성공하셨습니다.');
 			
 		</script>
@@ -73,24 +73,24 @@
 		</c:if> 
 	</table>
 			<div class="paging">
-				<a href="${conPath }/ProductList.do?pageNum=1">◀◀</a>
+				<a href="${conPath }/OrderList.do?pageNum=1">◀◀</a>
 					&nbsp; &nbsp; &nbsp;
 				<c:if test="${startPage > BLOCKSIZE }" >
-					<a href="${conPath }/ProductList.do?pageNum=${startPage-1 }">◀</a>
+					<a href="${conPath }/OrderList.do?pageNum=${startPage-1 }">◀</a>
 				</c:if>
 				<c:forEach var="i" begin="${startPage }" end="${endPage }">
 					<c:if test="${i eq pageNum }">
 						[<b> ${i } </b>]
 					</c:if>
 					<c:if test="${i != pageNum }">
-						[<a href="${conPath }/ProductList.do?pageNum=${i}"> ${i } </a>]
+						[<a href="${conPath }/OrderList.do?pageNum=${i}"> ${i } </a>]
 					</c:if>
 				</c:forEach>
 				<c:if test="${endPage < pageCnt }">
-					<a href="${conPath }/ProductList.do?pageNum=${endPage + 1}"> ▶ </a>
+					<a href="${conPath }/OrderList.do?pageNum=${endPage + 1}"> ▶ </a>
 				</c:if>
 				&nbsp; &nbsp; &nbsp;
-				<a href="${conPath }/ProductList.do?pageNum=${pageCnt}">▶▶</a>
+				<a href="${conPath }/OrderList.do?pageNum=${pageCnt}">▶▶</a>
 				<br> 
 			</div> 
 		</div>

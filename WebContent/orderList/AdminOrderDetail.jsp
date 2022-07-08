@@ -59,7 +59,7 @@
 			</tr>
 			<tr>
 				<td colspan="3">
-					<input type="button" value="주문처리" onclick="location='${conPath }/OrderSuccess.do?odid=${param.odid }&cid=${customer.cid }'">
+					<input type="button" value="주문처리" onclick="location='${conPath }/OrderSuccess.do?odid=${param.odid }&pageNum=1'">
 					<input type="button" value="뒤로가기" onclick= history.back(); >
 				</td>
 			</tr>

@@ -132,6 +132,10 @@ public class FFController extends HttpServlet {
 			service = new ProductListService();//  
 			service.execute(request, response); // aid parameter로 idConfirm한 결과를 request로 객체 set
 			viewPage = "admin/ProductList.jsp";
+		} else if (command.equals("/ProductList1.do")) { // ID 중복 체크하기
+			service = new ProductListService();//  
+			service.execute(request, response); // aid parameter로 idConfirm한 결과를 request로 객체 set
+			viewPage = "admin/ProductList.jsp";
 		}
 		
 		 //
@@ -402,6 +406,10 @@ public class FFController extends HttpServlet {
 			service = new OrderListService();
 			service.execute(request, response);
 			viewPage = "orderList/AdminOrderList.jsp";
+		} else if (command.equals("/OrderList1.do")) {	  
+			service = new OrderListService();
+			service.execute(request, response);
+			viewPage = "OrderList.do";
 		} else if (command.equals("/AdminOrderDetail.do")) {	  
 			service = new AdminOrderDetailService();
 			service.execute(request, response);
@@ -409,7 +417,7 @@ public class FFController extends HttpServlet {
 		} else if (command.equals("/OrderSuccess.do")) {	  
 			service = new OrderSuccessService(); 
 			service.execute(request, response);  
-			viewPage = "OrderList.do";
+			viewPage = "OrderList1.do";
 		} 
 		
 	
